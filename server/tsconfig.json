@@ -23,6 +23,10 @@
     // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
+    "baseUrl": ".",
+    "paths": {
+      "@shared/*": ["../shared/*"]
+    },
 
     // Style Options
     // "noImplicitReturns": true,
@@ -38,10 +42,11 @@
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
-    "skipLibCheck": true,   
+    "skipLibCheck": true,
     "moduleResolution": "NodeNext",
-    "esModuleInterop": true,  
+    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist"
-  }
+  },
+  "include": ["src", "../shared/**/*"]
 }
