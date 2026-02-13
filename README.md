@@ -115,11 +115,17 @@ agoda-clone/
 ├── 📁 server/              # โค้ดฝั่ง Express (Backend)
 │   ├── routes/
 │   ├── models/
-│   ├── controllers/
+│   ├── controllers/        
+    ├── db/                 # Database configuration
+    ├── config/             # เก็บ swagger configuration
+    ├── .env                # เก็บข้อมูลความลับ
 │   └── package.json
 │
 ├── 🐳 docker-compose.yml   # ไฟล์ตั้งค่าฐานข้อมูล
-├── 📝 README.md            # คุณกำลังอ่านไฟล์นี้อยู่!
+├── 📝 README.md            
+├── shared/type
+|    ├── hotel.ts           # เก็บ type และ interfaces ร่วมกันทั้ง front แลพ back
+|    ├── user.ts
 └── 🚫 .gitignore           # ไฟล์ที่ไม่ต้องอัปโหลด
 ```
 
@@ -224,3 +230,28 @@ docker ps
 3. ส่ง Pull Request
 
 ---
+
+## Swagger 
+
+1. เข้าไปที่ localhost:5207/api-docs
+2. Swagger จะเป็นหน้า page รวม api ทีมีใน backend
+
+---
+
+## Backend
+
+1. cd เข้าไปที่โฟลเดอร์ทีมี index.ts อยู่
+2. พิมพ์ใน terminal ว่า npm run dev
+3. เข้าเว็ปไปที่ localhost:5207/api-docs
+
+---
+
+## Frontend
+
+1. cd ไปที่ client
+2. พิมพ์ใน terminal ว่า npm run dev
+3. เข้าเว็ปไปที่ localhost:5173
+
+---
+
+## อย่าลืม Checkout ไปที่ develops ก่อนจะทําการรัน server นะ
