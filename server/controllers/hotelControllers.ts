@@ -1,6 +1,5 @@
 import HotelModel from "../models/hotelModel";
 import type { Request, Response } from "express";
-import type { IHotel } from "../../shared/types/hotel";
 
 //Create a new hotel
 export const createHotel = async (req: Request, res: Response):Promise<void> => {

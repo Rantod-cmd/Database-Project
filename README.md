@@ -1,4 +1,4 @@
-# 🏨 Agoda Clone Project
+# 🏨 Database Project
 
 > โปรเจ็คฝึกทำระบบจองที่พักแบบ Full-Stack พร้อมฐานข้อมูล 2 รูปแบบ
 
