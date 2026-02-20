@@ -7,7 +7,7 @@ const isLogin = false;
 const navItems: NavItem[] = [
   {
     label: "แผนที่โรคระบาด",
-    href: "/",
+    href: "/map",
     icon: <Map className="w-4 h-4" />,
   },
   {
