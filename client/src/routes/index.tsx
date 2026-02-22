@@ -1,9 +1,11 @@
-// FormData Page
 import { createBrowserRouter } from 'react-router-dom';
-import { PublicHealthForm } from '../features/form/page/HealthForm';
 import { MainLayout } from '../layouts/MainLayout';
-import Information from '../features/form/page/provinces';
-import Patient from '../features/form/page/Patient';
+import LandingPage from '../features/page/landingpage';
+import EpidemicMap from '../features/page/EpidemicMap';
+import ProvincialData from '../features/page/ProvincialData';
+import AffiliatedHospitals from '../features/page/AffiliatedHospitals';
+import ContactUs from '../features/page/ContactUs';
+import PatientReporting from '../features/page/PatientReporting';
 
 export const router = createBrowserRouter([
     {
@@ -11,17 +13,29 @@ export const router = createBrowserRouter([
         element: <MainLayout />,
         children: [
             {
-                path: "/HealthForm",
-                element: <PublicHealthForm />
+                index: true,
+                element: <LandingPage />
             },
             {
-                path: "/provinces",
-                element: <Information />
+                path: "map",
+                element: <EpidemicMap />
             },
             {
-                path: "/statistics",
-                element: <Patient />
+                path: "provinces",
+                element: <ProvincialData />
+            },
+            {
+                path: "hospitals",
+                element: <AffiliatedHospitals />
+            },
+            {
+                path: "reporting",
+                element: <PatientReporting />
+            },
+            {
+                path: "contact",
+                element: <ContactUs />
             }
         ]
     }
-])
+]);

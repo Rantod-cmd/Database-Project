@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { FormData } from "@shared/types/components/types";
-import { useForm } from "../hooks/useFormData";
+import { useForm } from "../form/hooks/useFormData";
 import './FormStyles.css';
 
 export const PublicHealthForm = () => {
