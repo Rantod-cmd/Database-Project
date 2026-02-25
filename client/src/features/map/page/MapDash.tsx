@@ -2,7 +2,7 @@ import React from 'react'
 import { MapChart } from '../../../components/Map'
 
 
-const mapDash = () => {
+const MapDash = () => {
   return (
     <div className='bg-black'>
         <MapChart />
@@ -10,4 +10,4 @@ const mapDash = () => {
   )
 }
 
-export default mapDash
+export default MapDash
