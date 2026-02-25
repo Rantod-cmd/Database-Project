@@ -26,6 +26,49 @@ services:
     depends_on:
       - mongo-db
 
+  db-postgres:
+    image: postgres:17-alpine
+    container_name: DB-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: my_sql_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+
+  server:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    container_name: Backend
+    restart: always
+    ports:
+      - "5207:5207"
+      - "5555:5555"
+    volumes:
+      - ./server:/app/server      
+      - /app/server/node_modules 
+      - ./shared:/app/shared
+    environment:
+      - PORT=5207
+      - DATABASE_URL=postgresql://user:password@db-postgres:5432/my_sql_db?schema=public  
+      - MONGO_URL=mongodb://admin:password@DB-mongo:27017/hotel_db?authSource=admin       
+    depends_on:
+      - mongo-db
+      - db-postgres
+    command: >
+      sh -c "npx prisma generate && 
+             npx prisma studio --browser none & 
+             npx tsx watch index.ts
+             npx prisma db push
+             npx prisma generate
+             npx prisma db seed
+             "
+
+
   client:
     build:
       context: .
@@ -34,6 +77,13 @@ services:
     restart: always
     ports:
       - "5173:5173"
+    volumes:
+      - ./client:/app/client
+      - ./shared:/app/shared
+      - /app/client/node_modules
+    depends_on:
+      - server
 
 volumes:
   mongo_data:
+  postgres_data:

@@ -6,6 +6,7 @@ import AffiliatedHospitals from '../features/hospitals/page/AffiliatedHospitals'
 import ContactUs from '../features/contact_us/page/ContactUs';
 import PatientReporting from '../features/PatientReporting';
 import MapDash from '../features/map/page/MapDash';
+import Login from '../features/login/page/Login';
 
 export const router = createBrowserRouter([
     {
@@ -37,5 +38,9 @@ export const router = createBrowserRouter([
                 element: <ContactUs />
             }
         ]
+    },
+    {
+        path: "/login",
+        element: <Login />
     }
 ]);
