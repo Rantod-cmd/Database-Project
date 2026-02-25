@@ -20,3 +20,12 @@ export interface NavItem {
 export interface NavbarProps {
     activeTab?: string;
 }
+
+
+export interface Map {
+    id: string;
+    name: string;
+    coordinates: [number,number];
+    fontsize : number;
+    population : number;
+}
