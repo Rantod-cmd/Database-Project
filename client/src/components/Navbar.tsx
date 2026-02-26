@@ -1,16 +1,26 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Phone, Mail, Clock, LogIn, ShieldAlert } from "lucide-react";
+import {
+  Phone,
+  Mail,
+  Clock,
+  LogIn,
+  ShieldAlert,
+  LogOut,
+  BarChart2,
+} from "lucide-react";
+import { useAuthStore } from "../stores/authStore";
 
 interface NavbarProps {
   activeTab?: string;
 }
 
 const Navbar = ({ activeTab }: NavbarProps) => {
+  const { hospital, logout } = useAuthStore();
   const { pathname } = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const currentActiveTab = activeTab || pathname;
-
+  const navigate = useNavigate();
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 40);
@@ -26,6 +36,11 @@ const Navbar = ({ activeTab }: NavbarProps) => {
     { name: "รายงานผู้ป่วย", path: "/reporting" },
     { name: "ติดต่อกองควบคุมโรค", path: "/contact" },
   ];
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50">
@@ -48,7 +63,9 @@ const Navbar = ({ activeTab }: NavbarProps) => {
               <span>Mon - Fri: 08:30 - 16:30</span>
             </div>
             <div className="flex items-center gap-4">
-              <button className="hover:text-white transition-colors">Language: EN</button>
+              <button className="hover:text-white transition-colors">
+                Language: EN
+              </button>
               <button className="hover:text-white transition-colors">TH</button>
             </div>
           </div>
@@ -56,10 +73,13 @@ const Navbar = ({ activeTab }: NavbarProps) => {
       </div>
 
       {/* Main Navigation - Solid White */}
-      <nav className={`transition-all duration-300 border-b ${isScrolled
-        ? "bg-white py-3 shadow-md border-slate-200"
-        : "bg-white py-5 border-slate-100"
-        }`}>
+      <nav
+        className={`transition-all duration-300 border-b ${
+          isScrolled
+            ? "bg-white py-3 shadow-md border-slate-200"
+            : "bg-white py-5 border-slate-100"
+        }`}
+      >
         <div className="max-w-[1400px] mx-auto px-8 flex items-center justify-between">
           {/* Logo Section */}
           <Link to="/" className="flex items-center gap-4 group shrink-0">
@@ -84,23 +104,63 @@ const Navbar = ({ activeTab }: NavbarProps) => {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`text-[13px] font-black uppercase tracking-wider transition-all relative pb-1 group ${isActive ? "text-medical-green-700" : "text-slate-600 hover:text-medical-green-600"
-                    }`}
+                  className={`text-[13px] font-black uppercase tracking-wider transition-all relative pb-1 group ${
+                    isActive
+                      ? "text-medical-green-700"
+                      : "text-slate-600 hover:text-medical-green-600"
+                  }`}
                 >
                   {link.name}
-                  <span className={`absolute bottom-0 left-0 w-full h-[3px] bg-medical-green-600 transition-transform duration-300 origin-left rounded-full ${isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-                    }`} />
+                  <span
+                    className={`absolute bottom-0 left-0 w-full h-[3px] bg-medical-green-600 transition-transform duration-300 origin-left rounded-full ${
+                      isActive
+                        ? "scale-x-100"
+                        : "scale-x-0 group-hover:scale-x-100"
+                    }`}
+                  />
                 </Link>
               );
             })}
           </div>
 
-          {/* User Actions */}
           <div className="flex items-center gap-4">
-            <button className="flex items-center gap-2.5 px-6 py-3 bg-medical-green-900 text-white rounded-md text-[12px] font-black uppercase tracking-widest shadow-lg shadow-emerald-900/10 hover:bg-medical-green-800 transition-all active:scale-95">
-              <LogIn className="w-4 h-4" />
-              Internal Login
-            </button>
+            {hospital ? (
+              <div className="flex items-center gap-2 bg-slate-50 p-1.5 rounded-lg border border-slate-100">
+                <button
+                  onClick={() => navigate("/statistics")}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-md text-[12px] font-black uppercase tracking-widest transition-all ${
+                    currentActiveTab === "/statistics"
+                      ? "bg-medical-green-900 text-white shadow-md"
+                      : "text-slate-600 hover:bg-white hover:shadow-sm"
+                  }`}
+                >
+                  <BarChart2
+                    className={`w-4 h-4 ${
+                      currentActiveTab === "/statistics"
+                        ? "text-white"
+                        : "text-medical-green-600"
+                    }`}
+                  />
+                  สถิติภายใน
+                </button>
+                <div className="w-[1px] h-6 bg-slate-200 mx-1" />
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center gap-2 px-4 py-2 text-slate-400 hover:text-red-600 rounded-md text-[12px] font-black uppercase tracking-widest transition-all"
+                >
+                  <LogOut className="w-4 h-4" />
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <button
+                className="flex items-center gap-2.5 px-6 py-3 bg-medical-green-900 text-white rounded-md text-[12px] font-black uppercase tracking-widest shadow-lg hover:bg-medical-green-800 transition-all active:scale-95"
+                onClick={() => navigate("/login")}
+              >
+                <LogIn className="w-4 h-4" />
+                Internal Login
+              </button>
+            )}
           </div>
         </div>
       </nav>

@@ -1,15 +1,13 @@
 FROM node:20-alpine
 
-WORKDIR /app
+WORKDIR /app/client
 
-COPY client/package*.json ./client/
+COPY client/package*.json ./
 
-RUN npm install --prefix client
+RUN npm install --legacy-peer-deps && npm install prop-types --legacy-peer-deps
 
 COPY client ./client
 COPY shared ./shared
-
-WORKDIR /app/client
 
 EXPOSE 5173
 
