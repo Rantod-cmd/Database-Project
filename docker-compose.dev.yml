@@ -50,7 +50,7 @@ services:
       - "5555:5555"
     volumes:
       - ./server:/app/server      
-      - /app/server/node_modules 
+      - /app/node_modules 
       - ./shared:/app/shared
     environment:
       - PORT=5207
