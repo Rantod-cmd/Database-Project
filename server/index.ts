@@ -15,8 +15,10 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 //Import Routes
 import provinceRoutes from './routes/provinceRoutes'
 import authRoutes from './routes/authRoutes'
+import hospitalRoutes from './routes/hospitalRoutes'
 app.use('/api/provinces', provinceRoutes)
 app.use('/api/auth',authRoutes)
+app.use('/api/hospital',hospitalRoutes)
 
 app.listen(PORT, async () => {
   console.log(`🚀 Server ready at: http://localhost:${PORT}`);

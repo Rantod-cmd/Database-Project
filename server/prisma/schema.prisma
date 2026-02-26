@@ -22,8 +22,12 @@ model Province {
 model Hospital {
   id    String @id
   name  String 
+  category  String
   password  String
   provinceId  String
   province  Province @relation(fields: [provinceId],references: [id])
-
+  status  String
+  beds  Int
+  emergency String
+  phone String
 }

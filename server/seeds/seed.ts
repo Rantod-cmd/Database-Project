@@ -110,10 +110,12 @@ const main = async():Promise<void> => {
   const saltRounds = 10
   const hashedPin = await bcrypt.hash('1234', saltRounds)
   const Hospital:IHospital[] = [
-    { id: 'H001', name: 'โรงพยาบาลจุฬาลงกรณ์', provinceId: 'Bangkok Metropolis' },
-    { id: 'H002', name: 'โรงพยาบาลศิริราช', provinceId: 'Bangkok Metropolis' },
-    { id: 'H003', name: 'โรงพยาบาลมหาราชนครเชียงใหม่', provinceId: 'Chiang Mai' },
-    { id: 'H004', name: 'โรงพยาบาลวชิระภูเก็ต', provinceId: 'Phuket' },
+    { id: "H001", name: "โรงพยาบาลศิริราช (Siriraj Hospital)", category: "General Hospital", provinceId: "Bangkok Metropolis", status: "Active", beds: 2450, emergency: "High", phone: "02-419-7000" },
+    { id: "H002", name: "โรงพยาบาลเชียงใหม่ราม", category: "Private Hospital", provinceId: "Chiang Mai", status: "Active", beds: 350, emergency: "Normal", phone: "053-920-300" },
+    { id: "H003", name: "รพ.สต. บ้านไร่", category: "Health Center", provinceId: "Khon Kaen", status: "Maintenance", beds: 0, emergency: "Normal", phone: "043-123-456" },
+    { id: "H004", name: "โรงพยาบาลสงขลานครินทร์", category: "University Hospital", provinceId: "Songkhla", status: "Active", beds: 850, emergency: "Full", phone: "074-451-000" },
+    { id: "H005", name: "โรงพยาบาลกรุงเทพ", category: "Private Hospital", provinceId: "Bangkok Metropolis", status: "Active", beds: 500, emergency: "Normal", phone: "02-310-3000" },
+    { id: "H006", name: "โรงพยาบาลพุทธชินราช", category: "General Hospital", provinceId: "Phitsanulok", status: "Active", beds: 900, emergency:"Normal",  phone: "055-270-300" },
   ]
   for (const h of Hospital) {
     await prisma.hospital.upsert({
@@ -121,13 +123,24 @@ const main = async():Promise<void> => {
       update: {
         name: h.name,
         provinceId: h.provinceId,
-        password: hashedPin 
+        password: hashedPin,
+        category: h.category,
+        status: h.status,
+        beds:h.beds,
+        emergency:h.emergency,
+        phone:h.phone
       },
       create: {
         id: h.id,
         name: h.name,
+        category: h.category,
         password: hashedPin,
         provinceId: h.provinceId,
+        status: h.status,
+        beds:h.beds,
+        emergency:h.emergency,
+        phone:h.phone
+
       },
     })
   }
