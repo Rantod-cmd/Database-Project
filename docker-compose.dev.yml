@@ -49,13 +49,13 @@ services:
       - "5207:5207"
       - "5555:5555"
     volumes:
-      - ./server:/app/server      
-      - /app/server/node_modules 
+      - ./server:/app/server
       - ./shared:/app/shared
+      - /app/server/node_modules
     environment:
       - PORT=5207
-      - DATABASE_URL=postgresql://user:password@db-postgres:5432/my_sql_db?schema=public  
-      - MONGO_URL=mongodb://admin:password@DB-mongo:27017/hotel_db?authSource=admin       
+      - DATABASE_URL=postgresql://user:password@db-postgres:5432/my_sql_db?schema=public
+      - MONGO_URL=mongodb://admin:password@DB-mongo:27017/mydatabase?authSource=admin
     depends_on:
       - mongo-db
       - db-postgres

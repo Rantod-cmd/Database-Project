@@ -2,7 +2,8 @@ import { PrismaClient } from '@prisma/client'
 import * as bcrypt from 'bcrypt'
 import type { IProvince } from '../../shared/types/schema/province'
 import type { IHospital } from '../../shared/types/schema/hospital'
-
+import { IDisease} from '../../shared/types/schema/disease'
+import { IUser } from '../../shared/types/schema/user'
 const prisma = new PrismaClient()
 
 const main = async():Promise<void> => {
@@ -107,15 +108,14 @@ const main = async():Promise<void> => {
         )
       }
   console.log("ดึงข้อมูลอ้างอิงจังหวัดเสร็จสิ้น")
-  const saltRounds = 10
-  const hashedPin = await bcrypt.hash('1234', saltRounds)
+
   const Hospital:IHospital[] = [
-    { id: "H001", name: "โรงพยาบาลศิริราช (Siriraj Hospital)", category: "General Hospital", provinceId: "Bangkok Metropolis", status: "Active", beds: 2450, emergency: "High", phone: "02-419-7000" },
-    { id: "H002", name: "โรงพยาบาลเชียงใหม่ราม", category: "Private Hospital", provinceId: "Chiang Mai", status: "Active", beds: 350, emergency: "Normal", phone: "053-920-300" },
-    { id: "H003", name: "รพ.สต. บ้านไร่", category: "Health Center", provinceId: "Khon Kaen", status: "Maintenance", beds: 0, emergency: "Normal", phone: "043-123-456" },
-    { id: "H004", name: "โรงพยาบาลสงขลานครินทร์", category: "University Hospital", provinceId: "Songkhla", status: "Active", beds: 850, emergency: "Full", phone: "074-451-000" },
-    { id: "H005", name: "โรงพยาบาลกรุงเทพ", category: "Private Hospital", provinceId: "Bangkok Metropolis", status: "Active", beds: 500, emergency: "Normal", phone: "02-310-3000" },
-    { id: "H006", name: "โรงพยาบาลพุทธชินราช", category: "General Hospital", provinceId: "Phitsanulok", status: "Active", beds: 900, emergency:"Normal",  phone: "055-270-300" },
+    { id: "H001", name: "โรงพยาบาลศิริราช (Siriraj Hospital)", provinceId: "Bangkok Metropolis", status: "Active", beds: 2450},
+    { id: "H002", name: "โรงพยาบาลเชียงใหม่ราม", provinceId: "Chiang Mai", status: "Active", beds: 350},
+    { id: "H003", name: "รพ.สต. บ้านไร่", provinceId: "Khon Kaen", status: "Maintenance", beds: 0},
+    { id: "H004", name: "โรงพยาบาลสงขลานครินทร์", provinceId: "Songkhla", status: "Active", beds: 850},
+    { id: "H005", name: "โรงพยาบาลกรุงเทพ", provinceId: "Bangkok Metropolis", status: "Active", beds: 500},
+    { id: "H006", name: "โรงพยาบาลพุทธชินราช", provinceId: "Phitsanulok", status: "Active", beds: 900},
   ]
   for (const h of Hospital) {
     await prisma.hospital.upsert({
@@ -123,30 +123,68 @@ const main = async():Promise<void> => {
       update: {
         name: h.name,
         provinceId: h.provinceId,
-        password: hashedPin,
-        category: h.category,
         status: h.status,
-        beds:h.beds,
-        emergency:h.emergency,
-        phone:h.phone
+        beds:h.beds
       },
       create: {
         id: h.id,
         name: h.name,
-        category: h.category,
-        password: hashedPin,
         provinceId: h.provinceId,
         status: h.status,
-        beds:h.beds,
-        emergency:h.emergency,
-        phone:h.phone
-
+        beds:h.beds
       },
     })
   }
   console.log("ดึงข้อมูลโรงพยาบาลเสร็จสิ้น")
+  const Disease:Omit<IDisease,'id'>[] = [
+  { icdCode: "J11", name: "ไข้หวัดใหญ่ (Influenza)" },
+    { icdCode: "E11", name: "เบาหวาน (Diabetes)" },
+    { icdCode: "I10", name: "ความดันโลหิตสูง (Hypertension)" },
+    { icdCode: "I25", name: "โรคหัวใจ (Heart Disease)" },
+    { icdCode: "C34", name: "มะเร็งปอด (Lung Cancer)" },
+    { icdCode: "F32", name: "ภาวะซึมเศร้า (Depression)" },
+    { icdCode: "G40", name: "โรคลมชัก (Epilepsy)" },
+    { icdCode: "M54", name: "ปวดหลัง (Back Pain)" },
+    { icdCode: "N39", name: "การติดเชื้อทางเดินปัสสาวะ (Urinary Tract Infection)" },
+    { icdCode: "K21", name: "กรดไหลย้อน (Gastroesophageal Reflux Disease)" },
+    { icdCode: "L20", name: "โรคผิวหนังอักเสบ (Atopic Dermatitis)" },
+    { icdCode: "H52", name: "สายตาสั้น (Myopia)" },
+    { icdCode: "R51", name: "ปวดศีรษะ (Headache)" },
+  ]
+  for (const d of Disease) {
+    await prisma.disease.upsert({
+      where: { icdCode: d.icdCode }, 
+      update: { name: d.name },
+      create: d
+    })
+  }
+  console.log("ดึงข้อมูลโรคเสร็จสิ้น")
+  const saltRounds = 10
+  const hashedAdmin = await bcrypt.hash('admin123', saltRounds)
+  const hashedStaff = await bcrypt.hash('staff456', saltRounds)
+  const Users:Omit<IUser,'id'>[] = [
+    { username: 'admin_siriraj', password: hashedAdmin, hospitalId: 'H001' },
+    { username: 'staff_siriraj', password: hashedStaff, hospitalId: 'H001' },
+    { username: 'admin_chiangmai', password: hashedAdmin, hospitalId: 'H002' },
+    { username: 'staff_chiangmai', password: hashedStaff, hospitalId: 'H002' },
+    { username: 'admin_khonkaen', password: hashedAdmin, hospitalId: 'H003' },
+    { username: 'staff_khonkaen', password: hashedStaff, hospitalId: 'H003' },
+    { username: 'admin_songkhla', password: hashedAdmin, hospitalId: 'H004' },
+    { username: 'staff_songkhla', password: hashedStaff, hospitalId: 'H004' },
+    { username: 'admin_bangkok', password: hashedAdmin, hospitalId: 'H005' },
+    { username: 'staff_bangkok', password: hashedStaff, hospitalId: 'H005' },
+    { username: 'admin_phitsanulok', password: hashedAdmin, hospitalId: 'H006' },
+    { username: 'staff_phitsanulok', password: hashedStaff, hospitalId: 'H006' },
+  ]
+  for (const u of Users) {
+    await prisma.user.upsert({
+      where : { username: u.username },
+      update: { password: u.password, hospitalId: u.hospitalId },
+      create: u
+    })
+  }
+  console.log("ดึงข้อมูลผู้ใช้เสร็จสิ้น")
 }
-
 main()
     .catch((e)=>{
         console.error(e)
