@@ -1,4 +1,4 @@
-services:
+gservices:
   mongo-db:
     image: mongo:latest
     container_name: DB-mongo

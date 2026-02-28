@@ -11,38 +11,37 @@ interface ProvinceData {
     region: string;
     sev: "n" | "w" | "e";
     total: number;
-    delta: string;
     diseases: Disease[];
 }
 
 const DATA: ProvinceData[] = [
-    { name: 'กรุงเทพมหานคร', region: 'กลาง', sev: 'e', total: 8420, delta: '+12%', diseases: [{ n: 'ไข้หวัดใหญ่ A', c: 2840 }, { n: 'COVID-19', c: 1620 }, { n: 'ไข้เลือดออก', c: 980 }] },
-    { name: 'เชียงใหม่', region: 'เหนือ', sev: 'e', total: 5640, delta: '+8%', diseases: [{ n: 'ไข้หวัดใหญ่ A', c: 2100 }, { n: 'ไข้เลือดออก', c: 1240 }, { n: 'มาลาเรีย', c: 430 }] },
-    { name: 'เชียงราย', region: 'เหนือ', sev: 'e', total: 4320, delta: '+15%', diseases: [{ n: 'ไข้หวัดใหญ่ A', c: 1870 }, { n: 'มาลาเรีย', c: 820 }, { n: 'ไข้เลือดออก', c: 560 }] },
-    { name: 'ขอนแก่น', region: 'ตะวันออกเฉียงเหนือ', sev: 'w', total: 3980, delta: '+5%', diseases: [{ n: 'ไข้เลือดออก', c: 1540 }, { n: 'โรคมือเท้าปาก', c: 890 }, { n: 'ไข้หวัดใหญ่ B', c: 620 }] },
-    { name: 'นครราชสีมา', region: 'ตะวันออกเฉียงเหนือ', sev: 'w', total: 3760, delta: '+3%', diseases: [{ n: 'ไข้เลือดออก', c: 1380 }, { n: 'ไข้หวัดใหญ่ A', c: 960 }, { n: 'อุจจาระร่วง', c: 540 }] },
-    { name: 'อุดรธานี', region: 'ตะวันออกเฉียงเหนือ', sev: 'w', total: 3210, delta: '-2%', diseases: [{ n: 'ไข้เลือดออก', c: 1210 }, { n: 'โรคมือเท้าปาก', c: 780 }, { n: 'ไข้หวัดใหญ่ A', c: 490 }] },
-    { name: 'สงขลา', region: 'ใต้', sev: 'w', total: 2980, delta: '+4%', diseases: [{ n: 'ไข้เลือดออก', c: 1120 }, { n: 'ชิคุนกุนยา', c: 640 }, { n: 'ไข้หวัดใหญ่ B', c: 380 }] },
-    { name: 'นนทบุรี', region: 'กลาง', sev: 'w', total: 2840, delta: '+9%', diseases: [{ n: 'ไข้หวัดใหญ่ A', c: 840 }, { n: 'COVID-19', c: 620 }, { n: 'ไข้เลือดออก', c: 420 }] },
-    { name: 'ปทุมธานี', region: 'กลาง', sev: 'w', total: 2240, delta: '+7%', diseases: [{ n: 'ไข้หวัดใหญ่ A', c: 780 }, { n: 'COVID-19', c: 540 }, { n: 'ไข้เลือดออก', c: 380 }] },
-    { name: 'สุราษฎร์ธานี', region: 'ใต้', sev: 'w', total: 2640, delta: '+1%', diseases: [{ n: 'ไข้เลือดออก', c: 980 }, { n: 'ชิคุนกุนยา', c: 540 }, { n: 'โรคมือเท้าปาก', c: 320 }] },
-    { name: 'ชลบุรี', region: 'ตะวันออก', sev: 'w', total: 2380, delta: '+6%', diseases: [{ n: 'ไข้เลือดออก', c: 840 }, { n: 'ไข้หวัดใหญ่ A', c: 720 }, { n: 'อาหารเป็นพิษ', c: 290 }] },
-    { name: 'ตาก', region: 'ตะวันตก', sev: 'w', total: 1880, delta: '+6%', diseases: [{ n: 'มาลาเรีย', c: 820 }, { n: 'ไข้เลือดออก', c: 480 }, { n: 'ไข้หวัดใหญ่ A', c: 280 }] },
-    { name: 'แม่ฮ่องสอน', region: 'เหนือ', sev: 'w', total: 1640, delta: '+4%', diseases: [{ n: 'มาลาเรีย', c: 740 }, { n: 'ไข้เลือดออก', c: 420 }, { n: 'ไข้หวัดใหญ่ A', c: 220 }] },
-    { name: 'สมุทรปราการ', region: 'กลาง', sev: 'w', total: 1980, delta: '+5%', diseases: [{ n: 'ไข้หวัดใหญ่ A', c: 720 }, { n: 'ไข้เลือดออก', c: 480 }, { n: 'โรคมือเท้าปาก', c: 320 }] },
-    { name: 'อยุธยา', region: 'กลาง', sev: 'n', total: 1160, delta: '-1%', diseases: [{ n: 'ไข้เลือดออก', c: 420 }, { n: 'ไข้หวัดใหญ่ A', c: 360 }, { n: 'อุจจาระร่วง', c: 180 }] },
-    { name: 'ภูเก็ต', region: 'ใต้', sev: 'n', total: 1940, delta: '-1%', diseases: [{ n: 'ไข้เลือดออก', c: 680 }, { n: 'ชิคุนกุนยา', c: 420 }, { n: 'อาหารเป็นพิษ', c: 240 }] },
-    { name: 'นครปฐม', region: 'กลาง', sev: 'n', total: 1420, delta: '+2%', diseases: [{ n: 'ไข้หวัดใหญ่ A', c: 540 }, { n: 'ไข้เลือดออก', c: 380 }, { n: 'โรคมือเท้าปาก', c: 220 }] },
-    { name: 'นครศรีธรรมราช', region: 'ใต้', sev: 'n', total: 1820, delta: '0%', diseases: [{ n: 'ไข้เลือดออก', c: 720 }, { n: 'ไข้หวัดใหญ่ B', c: 380 }, { n: 'โรคมือเท้าปาก', c: 210 }] },
-    { name: 'กาญจนบุรี', region: 'ตะวันตก', sev: 'n', total: 1680, delta: '-3%', diseases: [{ n: 'มาลาเรีย', c: 640 }, { n: 'ไข้เลือดออก', c: 480 }, { n: 'ไข้หวัดใหญ่ A', c: 220 }] },
-    { name: 'ราชบุรี', region: 'ตะวันตก', sev: 'n', total: 1540, delta: '+2%', diseases: [{ n: 'ไข้เลือดออก', c: 580 }, { n: 'ไข้หวัดใหญ่ A', c: 440 }, { n: 'อุจจาระร่วง', c: 180 }] },
-    { name: 'ระยอง', region: 'ตะวันออก', sev: 'n', total: 1240, delta: '+1%', diseases: [{ n: 'ไข้หวัดใหญ่ A', c: 460 }, { n: 'ไข้เลือดออก', c: 380 }, { n: 'COVID-19', c: 180 }] },
-    { name: 'ลำปาง', region: 'เหนือ', sev: 'n', total: 1180, delta: '-2%', diseases: [{ n: 'ไข้เลือดออก', c: 420 }, { n: 'มาลาเรีย', c: 310 }, { n: 'ไข้หวัดใหญ่ A', c: 240 }] },
-    { name: 'อุบลราชธานี', region: 'ตะวันออกเฉียงเหนือ', sev: 'w', total: 2840, delta: '+3%', diseases: [{ n: 'ไข้เลือดออก', c: 1040 }, { n: 'โรคมือเท้าปาก', c: 680 }, { n: 'ไข้หวัดใหญ่ A', c: 440 }] },
-    { name: 'กระบี่', region: 'ใต้', sev: 'n', total: 1040, delta: '0%', diseases: [{ n: 'ไข้เลือดออก', c: 380 }, { n: 'ชิคุนกุนยา', c: 280 }, { n: 'อาหารเป็นพิษ', c: 180 }] },
-    { name: 'เลย', region: 'ตะวันออกเฉียงเหนือ', sev: 'n', total: 720, delta: '-1%', diseases: [{ n: 'ไข้เลือดออก', c: 280 }, { n: 'มาลาเรีย', c: 200 }, { n: 'ไข้หวัดใหญ่ B', c: 140 }] },
-    { name: 'เพชรบุรี', region: 'ตะวันตก', sev: 'n', total: 1320, delta: '-1%', diseases: [{ n: 'ไข้เลือดออก', c: 490 }, { n: 'ไข้หวัดใหญ่ B', c: 380 }, { n: 'อาหารเป็นพิษ', c: 150 }] },
-    { name: 'สกลนคร', region: 'ตะวันออกเฉียงเหนือ', sev: 'n', total: 980, delta: '0%', diseases: [{ n: 'ไข้เลือดออก', c: 360 }, { n: 'โรคมือเท้าปาก', c: 280 }, { n: 'อุจจาระร่วง', c: 180 }] },
+    { name: 'กรุงเทพมหานคร', region: 'กลาง', sev: 'e', total: 8420, diseases: [{ n: 'ไข้หวัดใหญ่ A', c: 2840 }, { n: 'COVID-19', c: 1620 }, { n: 'ไข้เลือดออก', c: 980 }] },
+    { name: 'เชียงใหม่', region: 'เหนือ', sev: 'e', total: 5640, diseases: [{ n: 'ไข้หวัดใหญ่ A', c: 2100 }, { n: 'ไข้เลือดออก', c: 1240 }, { n: 'มาลาเรีย', c: 430 }] },
+    { name: 'เชียงราย', region: 'เหนือ', sev: 'e', total: 4320, diseases: [{ n: 'ไข้หวัดใหญ่ A', c: 1870 }, { n: 'มาลาเรีย', c: 820 }, { n: 'ไข้เลือดออก', c: 560 }] },
+    { name: 'ขอนแก่น', region: 'ตะวันออกเฉียงเหนือ', sev: 'w', total: 3980, diseases: [{ n: 'ไข้เลือดออก', c: 1540 }, { n: 'โรคมือเท้าปาก', c: 890 }, { n: 'ไข้หวัดใหญ่ B', c: 620 }] },
+    { name: 'นครราชสีมา', region: 'ตะวันออกเฉียงเหนือ', sev: 'w', total: 3760, diseases: [{ n: 'ไข้เลือดออก', c: 1380 }, { n: 'ไข้หวัดใหญ่ A', c: 960 }, { n: 'อุจจาระร่วง', c: 540 }] },
+    { name: 'อุดรธานี', region: 'ตะวันออกเฉียงเหนือ', sev: 'w', total: 3210, diseases: [{ n: 'ไข้เลือดออก', c: 1210 }, { n: 'โรคมือเท้าปาก', c: 780 }, { n: 'ไข้หวัดใหญ่ A', c: 490 }] },
+    { name: 'สงขลา', region: 'ใต้', sev: 'w', total: 2980, diseases: [{ n: 'ไข้เลือดออก', c: 1120 }, { n: 'ชิคุนกุนยา', c: 640 }, { n: 'ไข้หวัดใหญ่ B', c: 380 }] },
+    { name: 'นนทบุรี', region: 'กลาง', sev: 'w', total: 2840, diseases: [{ n: 'ไข้หวัดใหญ่ A', c: 840 }, { n: 'COVID-19', c: 620 }, { n: 'ไข้เลือดออก', c: 420 }] },
+    { name: 'ปทุมธานี', region: 'กลาง', sev: 'w', total: 2240, diseases: [{ n: 'ไข้หวัดใหญ่ A', c: 780 }, { n: 'COVID-19', c: 540 }, { n: 'ไข้เลือดออก', c: 380 }] },
+    { name: 'สุราษฎร์ธานี', region: 'ใต้', sev: 'w', total: 2640, diseases: [{ n: 'ไข้เลือดออก', c: 980 }, { n: 'ชิคุนกุนยา', c: 540 }, { n: 'โรคมือเท้าปาก', c: 320 }] },
+    { name: 'ชลบุรี', region: 'ตะวันออก', sev: 'w', total: 2380, diseases: [{ n: 'ไข้เลือดออก', c: 840 }, { n: 'ไข้หวัดใหญ่ A', c: 720 }, { n: 'อาหารเป็นพิษ', c: 290 }] },
+    { name: 'ตาก', region: 'ตะวันตก', sev: 'w', total: 1880, diseases: [{ n: 'มาลาเรีย', c: 820 }, { n: 'ไข้เลือดออก', c: 480 }, { n: 'ไข้หวัดใหญ่ A', c: 280 }] },
+    { name: 'แม่ฮ่องสอน', region: 'เหนือ', sev: 'w', total: 1640, diseases: [{ n: 'มาลาเรีย', c: 740 }, { n: 'ไข้เลือดออก', c: 420 }, { n: 'ไข้หวัดใหญ่ A', c: 220 }] },
+    { name: 'สมุทรปราการ', region: 'กลาง', sev: 'w', total: 1980, diseases: [{ n: 'ไข้หวัดใหญ่ A', c: 720 }, { n: 'ไข้เลือดออก', c: 480 }, { n: 'โรคมือเท้าปาก', c: 320 }] },
+    { name: 'อยุธยา', region: 'กลาง', sev: 'n', total: 1160, diseases: [{ n: 'ไข้เลือดออก', c: 420 }, { n: 'ไข้หวัดใหญ่ A', c: 360 }, { n: 'อุจจาระร่วง', c: 180 }] },
+    { name: 'ภูเก็ต', region: 'ใต้', sev: 'n', total: 1940, diseases: [{ n: 'ไข้เลือดออก', c: 680 }, { n: 'ชิคุนกุนยา', c: 420 }, { n: 'อาหารเป็นพิษ', c: 240 }] },
+    { name: 'นครปฐม', region: 'กลาง', sev: 'n', total: 1420, diseases: [{ n: 'ไข้หวัดใหญ่ A', c: 540 }, { n: 'ไข้เลือดออก', c: 380 }, { n: 'โรคมือเท้าปาก', c: 220 }] },
+    { name: 'นครศรีธรรมราช', region: 'ใต้', sev: 'n', total: 1820, diseases: [{ n: 'ไข้เลือดออก', c: 720 }, { n: 'ไข้หวัดใหญ่ B', c: 380 }, { n: 'โรคมือเท้าปาก', c: 210 }] },
+    { name: 'กาญจนบุรี', region: 'ตะวันตก', sev: 'n', total: 1680, diseases: [{ n: 'มาลาเรีย', c: 640 }, { n: 'ไข้เลือดออก', c: 480 }, { n: 'ไข้หวัดใหญ่ A', c: 220 }] },
+    { name: 'ราชบุรี', region: 'ตะวันตก', sev: 'n', total: 1540, diseases: [{ n: 'ไข้เลือดออก', c: 580 }, { n: 'ไข้หวัดใหญ่ A', c: 440 }, { n: 'อุจจาระร่วง', c: 180 }] },
+    { name: 'ระยอง', region: 'ตะวันออก', sev: 'n', total: 1240, diseases: [{ n: 'ไข้หวัดใหญ่ A', c: 460 }, { n: 'ไข้เลือดออก', c: 380 }, { n: 'COVID-19', c: 180 }] },
+    { name: 'ลำปาง', region: 'เหนือ', sev: 'n', total: 1180, diseases: [{ n: 'ไข้เลือดออก', c: 420 }, { n: 'มาลาเรีย', c: 310 }, { n: 'ไข้หวัดใหญ่ A', c: 240 }] },
+    { name: 'อุบลราชธานี', region: 'ตะวันออกเฉียงเหนือ', sev: 'w', total: 2840, diseases: [{ n: 'ไข้เลือดออก', c: 1040 }, { n: 'โรคมือเท้าปาก', c: 680 }, { n: 'ไข้หวัดใหญ่ A', c: 440 }] },
+    { name: 'กระบี่', region: 'ใต้', sev: 'n', total: 1040, diseases: [{ n: 'ไข้เลือดออก', c: 380 }, { n: 'ชิคุนกุนยา', c: 280 }, { n: 'อาหารเป็นพิษ', c: 180 }] },
+    { name: 'เลย', region: 'ตะวันออกเฉียงเหนือ', sev: 'n', total: 720, diseases: [{ n: 'ไข้เลือดออก', c: 280 }, { n: 'มาลาเรีย', c: 200 }, { n: 'ไข้หวัดใหญ่ B', c: 140 }] },
+    { name: 'เพชรบุรี', region: 'ตะวันตก', sev: 'n', total: 1320, diseases: [{ n: 'ไข้เลือดออก', c: 490 }, { n: 'ไข้หวัดใหญ่ B', c: 380 }, { n: 'อาหารเป็นพิษ', c: 150 }] },
+    { name: 'สกลนคร', region: 'ตะวันออกเฉียงเหนือ', sev: 'n', total: 980, diseases: [{ n: 'ไข้เลือดออก', c: 360 }, { n: 'โรคมือเท้าปาก', c: 280 }, { n: 'อุจจาระร่วง', c: 180 }] },
 ];
 
 const PER_PAGE = 9;
@@ -206,8 +205,6 @@ export default function ProvincialData() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
                 {currentPageData.length > 0 ? currentPageData.map((province, idx) => {
                     const maxCase = province.diseases[0].c;
-                    const trendUp = province.delta.startsWith('+');
-                    const trendStable = province.delta === '0%';
 
                     return (
                         <div
@@ -221,12 +218,12 @@ export default function ProvincialData() {
                                     <h3 className="text-xl font-black text-slate-900 font-heading leading-none">{province.name}</h3>
                                 </div>
                                 <div className={`px-4 py-1.5 rounded-full flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest ${province.sev === 'e' ? 'bg-rose-50 text-rose-600' :
-                                        province.sev === 'w' ? 'bg-amber-50 text-amber-600' :
-                                            'bg-emerald-50 text-emerald-600'
+                                    province.sev === 'w' ? 'bg-amber-50 text-amber-600' :
+                                        'bg-emerald-50 text-emerald-600'
                                     }`}>
                                     <div className={`w-1.5 h-1.5 rounded-full ${province.sev === 'e' ? 'bg-rose-500' :
-                                            province.sev === 'w' ? 'bg-amber-500' :
-                                                'bg-emerald-500'
+                                        province.sev === 'w' ? 'bg-amber-500' :
+                                            'bg-emerald-500'
                                         }`} />
                                     {sevLabel[province.sev]}
                                 </div>
@@ -238,15 +235,6 @@ export default function ProvincialData() {
                                     <div className="text-3xl font-black text-slate-900 font-heading">
                                         {province.total.toLocaleString()}
                                     </div>
-                                </div>
-                                <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-black text-xs ${trendStable ? 'bg-slate-200 text-slate-500' :
-                                        trendUp ? 'bg-rose-100 text-rose-600' :
-                                            'bg-emerald-100 text-emerald-600'
-                                    }`}>
-                                    <span className="material-symbols-outlined text-[16px]">
-                                        {trendStable ? 'horizontal_rule' : trendUp ? 'trending_up' : 'trending_down'}
-                                    </span>
-                                    {province.delta}
                                 </div>
                             </div>
 
@@ -260,7 +248,7 @@ export default function ProvincialData() {
                                         <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
                                             <div
                                                 className={`h-full rounded-full transition-all duration-1000 ${dIdx === 0 ? 'bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.3)]' :
-                                                        dIdx === 1 ? 'bg-emerald-400/60' : 'bg-slate-300'
+                                                    dIdx === 1 ? 'bg-emerald-400/60' : 'bg-slate-300'
                                                     }`}
                                                 style={{ width: `${Math.round((disease.c / maxCase) * 100)}%` }}
                                             />
@@ -291,9 +279,9 @@ export default function ProvincialData() {
 
             <div className="mt-8">
                 <Pagination
-                    page={page} 
-                    totalPages={totalPages} 
-                    onPageChange={handlePageChange} 
+                    page={page}
+                    totalPages={totalPages}
+                    onPageChange={handlePageChange}
                 />
             </div>
         </div>
