@@ -7,13 +7,17 @@ export const getDataProvince = async (
   res: Response,
 ): Promise<void> => {
   try {
-    const { page = "1", limit = "10", order = "count_desc" } = req.query;
+    const {
+      page = "1",
+      limit = "9",
+      order = "count_desc",
+      risk = "all",
+    } = req.query;
 
     const pageNumber = Math.max(Number(page), 1);
     const limitNumber = Math.max(Number(limit), 1);
     const skip = (pageNumber - 1) * limitNumber;
 
-    // กำหนด sort condition
     let sortCondition: any = {};
 
     switch (order) {
@@ -33,7 +37,25 @@ export const getDataProvince = async (
         sortCondition = { totalCount: -1 };
     }
 
+    // risk filter
+    let riskMatch: any = {};
+
+    switch (risk) {
+      case "normal":
+        riskMatch = { totalCount: { $gte: 0, $lte: 500 } };
+        break;
+      case "warning":
+        riskMatch = { totalCount: { $gte: 501, $lte: 3000 } };
+        break;
+      case "emergency":
+        riskMatch = { totalCount: { $gt: 3000 } };
+        break;
+      default:
+        riskMatch = {}; // all
+    }
+
     const pipeline: any[] = [
+      // group จังหวัด + โรค
       {
         $group: {
           _id: {
@@ -44,6 +66,7 @@ export const getDataProvince = async (
         },
       },
 
+      // group จังหวัด
       {
         $group: {
           _id: "$_id.provinceName",
@@ -66,9 +89,10 @@ export const getDataProvince = async (
         },
       },
 
-      // sort ตาม option
-      { $sort: sortCondition },
+      // filter ตามระดับความเสี่ยง
+      ...(Object.keys(riskMatch).length ? [{ $match: riskMatch }] : []),
 
+      { $sort: sortCondition },
       { $skip: skip },
       { $limit: limitNumber },
     ];
@@ -79,6 +103,7 @@ export const getDataProvince = async (
       success: true,
       page: pageNumber,
       limit: limitNumber,
+      risk,
       data,
     });
   } catch (error) {
