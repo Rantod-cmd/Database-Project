@@ -18,11 +18,13 @@ export const postReport = async (
       return;
     }
     const diseaseExists = await prisma.disease.findUnique({
-      where: { icdCode: icdCode }
+      where: { icdCode: icdCode },
     });
 
     if (!diseaseExists) {
-      res.status(400).json({ success: false, message: "ไม่พบข้อมูลโรคนี้ในระบบ" });
+      res
+        .status(400)
+        .json({ success: false, message: "ไม่พบข้อมูลโรคนี้ในระบบ" });
       return;
     }
 
