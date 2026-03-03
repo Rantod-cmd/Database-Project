@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import apiClient from "../api/apiClient";
+import { useAuthStore } from "../stores/authStore";
+
 import {
     Activity,
     ShieldCheck,
@@ -25,6 +28,7 @@ export default function PatientReporting() {
     const [modalName, setModalName] = useState("");
     const [modalProvince, setModalProvince] = useState("");
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const token = useAuthStore((state) => state.token);
 
     // Form States
     const [reportDate, setReportDate] = useState(new Date().toLocaleDateString("th-TH"));
@@ -37,6 +41,9 @@ export default function PatientReporting() {
     const [severity, setSeverity] = useState("normal");
     const [remarks, setRemarks] = useState("");
     const [coords, setCoords] = useState("13.7563, 100.5018 — กรุงเทพมหานคร");
+    const [age, setAge] = useState("");
+    const [sex, setSex] = useState("");
+
 
     useEffect(() => {
         const saved = localStorage.getItem("moph_facility_profile");
@@ -55,12 +62,28 @@ export default function PatientReporting() {
         setShowModal(false);
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.BaseSyntheticEvent) => {
         e.preventDefault();
-        setIsSubmitted(true);
-        setTimeout(() => setIsSubmitted(false), 3000);
-        alert("บันทึกข้อมูลและส่งรายงานเรียบร้อยแล้ว");
+        if (!token) {
+            // redirect ไป /login
+            return;
+        }
+        try {
+            setIsSubmitted(true);
+            await apiClient.post("/report", {
+                icdCode: icd10,   // ← ชื่อตรงกับ backend
+                age: Number(age),
+                sex: sex,
+            });
+            alert("ส่งรายงานสำเร็จ");
+        } catch (err: unknown) {
+            const message = (err as { response?: { data?: { message?: string } } })?.response?.data?.message;
+            alert(message || "เกิดข้อผิดพลาด");
+        } finally {
+            setIsSubmitted(false);
+        }
     };
+
 
     const getGPS = () => {
         setCoords("กำลังดึงข้อมูลพิกัด...");
@@ -212,6 +235,36 @@ export default function PatientReporting() {
                                 value={diseaseName}
                                 onChange={(e) => setDiseaseName(e.target.value)}
                             />
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div className="space-y-3">
+                                <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest ml-1">Age</label>
+                                <input
+                                    required
+                                    type="number"
+                                    placeholder="อายุผู้ป่วย"
+                                    className="w-full bg-slate-50 border border-slate-100 rounded py-3.5 px-6 font-bold text-sm text-slate-700 outline-none focus:border-medical-green-600 transition-all"
+                                    value={age}
+                                    onChange={(e) => setAge(e.target.value)}
+                                />
+                            </div>
+                            <div className="space-y-3">
+                                <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest ml-1">Sex</label>
+                                <div className="relative">
+                                    <select
+                                        required
+                                        className="w-full appearance-none bg-slate-50 border border-slate-100 rounded py-3.5 px-6 text-sm font-bold text-slate-700 outline-none focus:border-medical-green-600 transition-all cursor-pointer"
+                                        value={sex}
+                                        onChange={(e) => setSex(e.target.value)}
+                                    >
+                                        <option value="">เลือกเพศ</option>
+                                        <option value="male">ชาย</option>
+                                        <option value="female">หญิง</option>
+                                    </select>
+                                    <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-300 w-4 h-4 pointer-events-none" />
+                                </div>
+                            </div>
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">

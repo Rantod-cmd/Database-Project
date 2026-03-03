@@ -7,6 +7,7 @@ import ContactUs from '../features/contact_us/page/ContactUs';
 import PatientReporting from '../features/PatientReporting';
 import MapDash from '../features/map/page/MapDash';
 import Login from '../features/login/page/Login';
+import ProtectedRoute from './ProtectedRoute';
 
 export const router = createBrowserRouter([
     {
@@ -27,11 +28,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: "hospitals",
-                element: <AffiliatedHospitals />
+                element: <ProtectedRoute><AffiliatedHospitals /></ProtectedRoute>
             },
             {
                 path: "reporting",
-                element: <PatientReporting />
+                element: <ProtectedRoute><PatientReporting /></ProtectedRoute>
             },
             {
                 path: "contact",
