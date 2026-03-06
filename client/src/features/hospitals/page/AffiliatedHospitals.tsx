@@ -14,16 +14,35 @@ import {
 } from "lucide-react";
 import type { IHospital } from "../../../../../shared/types/schema/hospital";
 import apiClient from "../../../api/apiClient";
-import Dropdown from "../../../components/Dropdown"
+import Dropdown from "../../../components/Dropdown";
+import Pagination from "../../../components/Pagination"; 
+import { useNavigate } from "react-router-dom";
+
+interface PaginationData {
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+}
 
 export default function AffiliatedHospitals() {
   const [search, setSearch] = useState("");
   const [filterType, setFilterType] = useState("All");
   const [isAdding, setIsAdding] = useState(false);
-  const [Facilities, setFacilities] = useState<IHospital[]>([]);
+  const [facilities, setFacilities] = useState<IHospital[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [pagination, setPagination] = useState<PaginationData>({
+    total: 0,
+    page: 1,
+    limit: 6,
+    totalPages: 0,
+  });
+  const navigate = useNavigate();
 
-  // Form state สำหรับ modal
+  useEffect(() => {
+    setPagination(prev => ({ ...prev, page: 1 }));
+  }, [search, filterType]);
+
   const [formData, setFormData] = useState({
     id: "",
     name: "",
@@ -31,47 +50,54 @@ export default function AffiliatedHospitals() {
     provinceId: "Bangkok Metropolis",
     beds: "",
     phone: "",
+    emergency: "",
   });
 
   useEffect(() => {
     const fetchHospitals = async () => {
       try {
         setIsLoading(true);
-        const response = await apiClient.get("/hospital");
-        setFacilities(response.data);
+        const response = await apiClient.get("/hospital", {
+          params: {
+            search: search || undefined,
+            provinceId: filterType === "All" ? undefined : filterType,
+            limit: pagination.limit,
+            page: pagination.page,
+          },
+        });
+
+        setFacilities(response.data.data || []);
+        setPagination(response.data.pagination || pagination);
       } catch (error) {
-        console.log(error);
+        console.error("Failed to fetch hospitals:", error);
+        setFacilities([]);
       } finally {
         setIsLoading(false);
       }
     };
-    fetchHospitals();
-  }, []);
 
-  const filteredFacilities = useMemo(() => {
-    return Facilities.filter((f) => {
-      const matchSearch =
-        f.name.toLowerCase().includes(search.toLowerCase()) ||
-        (f.province?.name || f.provinceId)
-          .toLowerCase()
-          .includes(search.toLowerCase());
-      const matchType = filterType === "All" || f.category === filterType;
-      return matchSearch && matchType;
-    });
-  }, [Facilities, search, filterType]);
+    const timer = setTimeout(() => {
+      fetchHospitals();
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [search, filterType, pagination.page]);
+
+  console.log("Facilities:", facilities);
+  console.log("Pagination:", pagination);
 
   const stats = useMemo(() => {
-    const totalFacilities = Facilities.length;
-    const totalBeds = Facilities.reduce(
+    const totalFacilities = pagination.total; 
+    const totalBeds = facilities.reduce(
       (sum, f) => sum + (Number(f.beds) || 0),
       0
     );
-    const activeFacilities = Facilities.filter(
+    const activeFacilities = facilities.filter(
       (f) => f.status === "Active"
     ).length;
     const activePercentage =
-      totalFacilities > 0
-        ? ((activeFacilities / totalFacilities) * 100).toFixed(1)
+      facilities.length > 0
+        ? ((activeFacilities / facilities.length) * 100).toFixed(1)
         : "0.0";
 
     return {
@@ -80,7 +106,14 @@ export default function AffiliatedHospitals() {
       activePercentage,
       estimatedStaff: Math.floor(totalBeds * 3.5),
     };
-  }, [Facilities]);
+  }, [facilities, pagination.total]);
+
+  // ฟังก์ชันสำหรับเปลี่ยนหน้า
+  const handlePageChange = (newPage: number) => {
+    setPagination({ ...pagination, page: newPage });
+    // Scroll to top เมื่อเปลี่ยนหน้า
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   // Options สำหรับ dropdowns
   const categoryOptions = [
@@ -103,8 +136,8 @@ export default function AffiliatedHospitals() {
   ];
 
   const filterOptions = [
-    { value: "All", label: "ทุกประเภทสถานพยาบาล" },
-    ...categoryOptions,
+    { value: "All", label: "ทุกจังหวัด" },
+    ...provinceOptions,
   ];
 
   return (
@@ -126,7 +159,7 @@ export default function AffiliatedHospitals() {
         </div>
         <div>
           <button
-            onClick={() => setIsAdding(true)}
+            onClick={() => navigate('/login')}
             className="px-8 py-4 bg-medical-green-900 rounded-md text-[12px] font-black uppercase tracking-widest text-white hover:bg-medical-green-800 transition-all flex items-center gap-2 shadow-lg shadow-emerald-900/10"
           >
             <Plus className="w-4 h-4" />
@@ -144,7 +177,7 @@ export default function AffiliatedHospitals() {
             icon: Building2,
           },
           {
-            label: "เตียงทั้งหมด",
+            label: "เตียงในหน้านี้",
             val: stats.totalBeds.toLocaleString(),
             icon: Crosshair,
           },
@@ -207,7 +240,7 @@ export default function AffiliatedHospitals() {
       )}
 
       {/* Empty State */}
-      {!isLoading && filteredFacilities.length === 0 && (
+      {!isLoading && facilities.length === 0 && (
         <div className="text-center py-20">
           <Hospital className="w-16 h-16 text-slate-300 mx-auto mb-4" />
           <p className="text-slate-400 font-bold">ไม่พบข้อมูลสถานพยาบาล</p>
@@ -216,7 +249,7 @@ export default function AffiliatedHospitals() {
 
       {/* List of Facilities */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {filteredFacilities.map((f) => (
+        {facilities.map((f) => (
           <div
             key={f.id}
             className="official-card p-8 group flex flex-col gap-6 text-left hover:border-medical-green-600/30 transition-all duration-300"
@@ -297,6 +330,15 @@ export default function AffiliatedHospitals() {
           </div>
         ))}
       </div>
+
+      {/* Pagination Component */}
+      {!isLoading && facilities.length > 0 && (
+        <Pagination
+          page={pagination.page}
+          totalPages={pagination.totalPages}
+          onPageChange={handlePageChange}
+        />
+      )}
 
       {/* Registration Modal Overlay */}
       {isAdding && (

@@ -171,6 +171,24 @@ export default function Login() {
               </button>
             </form>
 
+            {/* Divider */}
+            <div className="flex items-center gap-3 my-6">
+              <div className="flex-1 h-px bg-slate-200"></div>
+              <span className="text-xs text-slate-400 font-medium">หรือ</span>
+              <div className="flex-1 h-px bg-slate-200"></div>
+            </div>
+
+            {/* Register Link */}
+            <div className="text-center">
+              <p className="text-sm text-slate-500 mb-2">ยังไม่มีบัญชี?</p>
+              <button
+                onClick={() => navigate('/register')}
+                className="text-sm font-bold text-primary hover:text-primary-dark transition-colors inline-flex items-center gap-1"
+              >
+                <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>person_add</span>
+                สมัครสมาชิก
+              </button>
+            </div>
           </div>
         </div>
       </main>

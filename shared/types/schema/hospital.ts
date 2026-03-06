@@ -7,4 +7,7 @@ export interface IHospital {
     };
     status:string;
     beds:number;
+    category?: string;
+    phone?: string;
+    emergency?: string;
 }

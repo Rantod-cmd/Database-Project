@@ -26,18 +26,19 @@ services:
     depends_on:
       - mongo-db
 
-  db-postgres:
-    image: postgres:17-alpine
-    container_name: DB-postgres
+  # ✅ เปลี่ยนจาก postgres เป็น SQL Server
+  db-sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: DB-sqlserver
     restart: always
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: my_sql_db
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "Password123!"  # ต้องมี uppercase + number + symbol
+      MSSQL_PID: "Developer"
     ports:
-      - "5432:5432"
+      - "1433:1433"
     volumes:
-      - postgres_data:/var/lib/postgresql
+      - sqlserver_data:/var/opt/mssql
 
   server:
     build:
@@ -54,19 +55,15 @@ services:
       - /app/server/node_modules
     environment:
       - PORT=5207
-      - DATABASE_URL=postgresql://user:password@db-postgres:5432/my_sql_db?schema=public
+      - DATABASE_URL=sqlserver://db-sqlserver:1433;database=my_sql_db;user=sa;password=Password123!;trustServerCertificate=true
       - MONGO_URL=mongodb://admin:password@DB-mongo:27017/mydatabase?authSource=admin
     depends_on:
       - mongo-db
-      - db-postgres
+      - db-sqlserver
     command: >
       sh -c "npx prisma generate && 
              npx prisma studio --browser none & 
-             npx tsx watch index.ts
-             npx prisma db push
-             npx prisma generate
-             npx prisma db seed
-             "
+             npx tsx watch index.ts"
 
   client:
     build:
@@ -85,4 +82,4 @@ services:
 
 volumes:
   mongo_data:
-  postgres_data:
+  sqlserver_data:
