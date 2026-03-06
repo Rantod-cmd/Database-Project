@@ -2,8 +2,15 @@ import { PrismaClient } from '@prisma/client'
 import * as bcrypt from 'bcrypt'
 import type { IProvince } from '../../shared/types/schema/province'
 import type { IHospital } from '../../shared/types/schema/hospital'
-
-const prisma = new PrismaClient()
+import { IDisease} from '../../shared/types/schema/disease'
+import { IUser } from '../../shared/types/schema/user'
+const prisma = new PrismaClient({
+    datasources: {
+      db: {
+        url: process.env.DATABASE_URL,
+      },
+    },
+  })
 
 const main = async():Promise<void> => {
     console.log("ดึงข้อมูลอ้างอิง");
@@ -107,84 +114,88 @@ const main = async():Promise<void> => {
         )
       }
   console.log("ดึงข้อมูลอ้างอิงจังหวัดเสร็จสิ้น")
-  const saltRounds = 10
-  const hashedPin = await bcrypt.hash('1234', saltRounds)
-  const Hospitals:IHospital[] = [
-    // --- เดิมของคุณ ---
-    { id: "H001", name: "โรงพยาบาลศิริราช (Siriraj Hospital)", category: "General Hospital", provinceId: "Bangkok Metropolis", status: "Active", beds: 2450, emergency: "High", phone: "02-419-7000" },
-    { id: "H002", name: "โรงพยาบาลเชียงใหม่ราม", category: "Private Hospital", provinceId: "Chiang Mai", status: "Active", beds: 350, emergency: "Normal", phone: "053-920-300" },
-    { id: "H003", name: "รพ.สต. บ้านไร่", category: "Health Center", provinceId: "Khon Kaen", status: "Maintenance", beds: 10, emergency: "Normal", phone: "043-123-456" },
-    { id: "H004", name: "โรงพยาบาลสงขลานครินทร์", category: "University Hospital", provinceId: "Songkhla", status: "Active", beds: 850, emergency: "Full", phone: "074-451-000" },
-    { id: "H005", name: "โรงพยาบาลกรุงเทพ", category: "Private Hospital", provinceId: "Bangkok Metropolis", status: "Active", beds: 500, emergency: "Normal", phone: "02-310-3000" },
-    { id: "H006", name: "โรงพยาบาลพุทธชินราช", category: "General Hospital", provinceId: "Phitsanulok", status: "Active", beds: 900, emergency: "Normal", phone: "055-270-300" },
-  
-    // --- ภาคเหนือ ---
-    { id: "H007", name: "โรงพยาบาลเชียงรายประชานุเคราะห์", category: "General Hospital", provinceId: "Chiang Rai", status: "Active", beds: 750, emergency: "High", phone: "053-711-300" },
-    { id: "H008", name: "โรงพยาบาลมหาราชนครเชียงใหม่", category: "University Hospital", provinceId: "Chiang Mai", status: "Active", beds: 1400, emergency: "Full", phone: "053-936-150" },
-    { id: "H009", name: "รพ.สต. ดอยแม่สลอง", category: "Health Center", provinceId: "Chiang Rai", status: "Active", beds: 5, emergency: "Normal", phone: "053-765-123" },
-    { id: "H010", name: "โรงพยาบาลน่าน", category: "General Hospital", provinceId: "Nan", status: "Active", beds: 450, emergency: "Normal", phone: "054-710-138" },
-    { id: "H011", name: "โรงพยาบาลศรีสังวาลย์", category: "General Hospital", provinceId: "Mae Hong Son", status: "Active", beds: 300, emergency: "Normal", phone: "053-611-378" },
-  
-    // --- ภาคกลาง ---
-    { id: "H012", name: "โรงพยาบาลธรรมศาสตร์เฉลิมพระเกียรติ", category: "University Hospital", provinceId: "Pathum Thani", status: "Active", beds: 800, emergency: "High", phone: "02-926-9999" },
-    { id: "H013", name: "โรงพยาบาลนนทเวช", category: "Private Hospital", provinceId: "Nonthaburi", status: "Active", beds: 200, emergency: "Normal", phone: "02-596-7888" },
-    { id: "H014", name: "โรงพยาบาลพระนั่งเกล้า", category: "General Hospital", provinceId: "Nonthaburi", status: "Active", beds: 550, emergency: "High", phone: "02-528-4567" },
-    { id: "H015", name: "โรงพยาบาลสมุทรปราการ", category: "General Hospital", provinceId: "Samut Prakan", status: "Active", beds: 600, emergency: "Full", phone: "02-389-5500" },
-    { id: "H016", name: "รพ.สต. ตลาดขวัญ", category: "Health Center", provinceId: "Nonthaburi", status: "Active", beds: 0, emergency: "Normal", phone: "02-525-0000" },
-  
-    // --- ภาคอีสาน ---
-    { id: "H017", name: "โรงพยาบาลมหาราชนครราชสีมา", category: "General Hospital", provinceId: "Nakhon Ratchasima", status: "Active", beds: 1600, emergency: "Full", phone: "044-235-000" },
-    { id: "H018", name: "โรงพยาบาลศรีนครินทร์", category: "University Hospital", provinceId: "Khon Kaen", status: "Active", beds: 1100, emergency: "High", phone: "043-347-444" },
-    { id: "H019", name: "โรงพยาบาลสรรพสิทธิประสงค์", category: "General Hospital", provinceId: "Ubon Ratchathani", status: "Active", beds: 1200, emergency: "High", phone: "045-244-973" },
-    { id: "H020", name: "โรงพยาบาลอุดรธานี", category: "General Hospital", provinceId: "Udon Thani", status: "Active", beds: 800, emergency: "Normal", phone: "042-245-555" },
-    { id: "H021", name: "โรงพยาบาลบุรีรัมย์", category: "General Hospital", provinceId: "Buri Ram", status: "Maintenance", beds: 700, emergency: "Normal", phone: "044-615-002" },
-  
-    // --- ภาคตะวันออก ---
-    { id: "H022", name: "โรงพยาบาลชลบุรี", category: "General Hospital", provinceId: "Chon Buri", status: "Active", beds: 850, emergency: "High", phone: "038-931-000" },
-    { id: "H023", name: "โรงพยาบาลกรุงเทพพัทยา", category: "Private Hospital", provinceId: "Chon Buri", status: "Active", beds: 400, emergency: "Normal", phone: "038-259-999" },
-    { id: "H024", name: "โรงพยาบาลระยอง", category: "General Hospital", provinceId: "Rayong", status: "Active", beds: 600, emergency: "High", phone: "038-611-104" },
-  
-    // --- ภาคใต้ ---
-    { id: "H025", name: "โรงพยาบาลวชิระภูเก็ต", category: "General Hospital", provinceId: "Phuket", status: "Active", beds: 600, emergency: "High", phone: "076-361-234" },
-    { id: "H026", name: "โรงพยาบาลกรุงเทพภูเก็ต", category: "Private Hospital", provinceId: "Phuket", status: "Active", beds: 250, emergency: "Normal", phone: "076-254-433" },
-    { id: "H027", name: "โรงพยาบาลมหาราชนครศรีธรรมราช", category: "General Hospital", provinceId: "Nakhon Si Thammarat", status: "Active", beds: 800, emergency: "Normal", phone: "075-340-250" },
-    { id: "H028", name: "โรงพยาบาลสุราษฎร์ธานี", category: "General Hospital", provinceId: "Surat Thani", status: "Active", beds: 700, emergency: "High", phone: "077-915-600" },
-    { id: "H029", name: "โรงพยาบาลยะลา", category: "General Hospital", provinceId: "Yala", status: "Active", beds: 500, emergency: "High", phone: "073-244-711" },
-  
-    // --- ภาคตะวันตก ---
-    { id: "H030", name: "โรงพยาบาลพหลพลพยุหเสนา", category: "General Hospital", provinceId: "Kanchanaburi", status: "Active", beds: 550, emergency: "Normal", phone: "034-587-333" },
-    { id: "H031", name: "โรงพยาบาลสมเด็จพระเจ้าตากสินมหาราช", category: "General Hospital", provinceId: "Tak", status: "Active", beds: 400, emergency: "Normal", phone: "055-513-333" }
-  ];
-  for (const h of Hospitals) {
+  const Hospital:IHospital[] = [
+    { id: "H001", name: "โรงพยาบาลศิริราช (Siriraj Hospital)", provinceId: "Bangkok Metropolis", status: "Active", beds: 2450, category: "General Hospital", phone: "02-419-7000", emergency: "High" },
+    { id: "H002", name: "โรงพยาบาลเชียงใหม่ราม", provinceId: "Chiang Mai", status: "Active", beds: 350, category: "General Hospital", phone: "053-935-111", emergency: "Available" },
+    { id: "H003", name: "รพ.สต. บ้านไร่", provinceId: "Khon Kaen", status: "Maintenance", beds: 0, category: "University Hospital", phone: "043-465-123", emergency: "Full" },
+    { id: "H004", name: "โรงพยาบาลสงขลานครินทร์", provinceId: "Songkhla", status: "Active", beds: 850, category: "General Hospital", phone: "074-325-444", emergency: "Available" },
+    { id: "H005", name: "โรงพยาบาลกรุงเทพ", provinceId: "Bangkok Metropolis", status: "Active", beds: 500, category: "Private Hospital", phone: "02-123-4567", emergency: "High" },
+    { id: "H006", name: "โรงพยาบาลพุทธชินราช", provinceId: "Phitsanulok", status: "Active", beds: 900, category: "University Hospital", phone: "055-252-111", emergency: "Available" },
+  ]
+  for (const h of Hospital) {
     await prisma.hospital.upsert({
       where: { id: h.id },
       update: {
         name: h.name,
         provinceId: h.provinceId,
-        password: hashedPin,
-        category: h.category,
         status: h.status,
-        beds:h.beds,
-        emergency:h.emergency,
-        phone:h.phone
+        beds: h.beds,
+        category: h.category,
+        phone: h.phone,
+        emergency: h.emergency
       },
       create: {
         id: h.id,
         name: h.name,
-        category: h.category,
-        password: hashedPin,
         provinceId: h.provinceId,
         status: h.status,
-        beds:h.beds,
-        emergency:h.emergency,
-        phone:h.phone
-
+        beds: h.beds,
+        category: h.category,
+        phone: h.phone,
+        emergency: h.emergency
       },
     })
   }
   console.log("ดึงข้อมูลโรงพยาบาลเสร็จสิ้น")
+  const Disease:Omit<IDisease,'id'>[] = [
+  { icdCode: "J11", name: "ไข้หวัดใหญ่ (Influenza)" },
+    { icdCode: "E11", name: "เบาหวาน (Diabetes)" },
+    { icdCode: "I10", name: "ความดันโลหิตสูง (Hypertension)" },
+    { icdCode: "I25", name: "โรคหัวใจ (Heart Disease)" },
+    { icdCode: "C34", name: "มะเร็งปอด (Lung Cancer)" },
+    { icdCode: "F32", name: "ภาวะซึมเศร้า (Depression)" },
+    { icdCode: "G40", name: "โรคลมชัก (Epilepsy)" },
+    { icdCode: "M54", name: "ปวดหลัง (Back Pain)" },
+    { icdCode: "N39", name: "การติดเชื้อทางเดินปัสสาวะ (Urinary Tract Infection)" },
+    { icdCode: "K21", name: "กรดไหลย้อน (Gastroesophageal Reflux Disease)" },
+    { icdCode: "L20", name: "โรคผิวหนังอักเสบ (Atopic Dermatitis)" },
+    { icdCode: "H52", name: "สายตาสั้น (Myopia)" },
+    { icdCode: "R51", name: "ปวดศีรษะ (Headache)" },
+  ]
+  for (const d of Disease) {
+    await prisma.disease.upsert({
+      where: { icdCode: d.icdCode }, 
+      update: { name: d.name },
+      create: d
+    })
+  }
+  console.log("ดึงข้อมูลโรคเสร็จสิ้น")
+  const saltRounds = 10
+  const hashedAdmin = await bcrypt.hash('admin123', saltRounds)
+  const hashedStaff = await bcrypt.hash('staff456', saltRounds)
+  const Users:Omit<IUser,'id'>[] = [
+    { username: 'admin_siriraj', password: hashedAdmin, hospitalId: 'H001' },
+    { username: 'staff_siriraj', password: hashedStaff, hospitalId: 'H001' },
+    { username: 'admin_chiangmai', password: hashedAdmin, hospitalId: 'H002' },
+    { username: 'staff_chiangmai', password: hashedStaff, hospitalId: 'H002' },
+    { username: 'admin_khonkaen', password: hashedAdmin, hospitalId: 'H003' },
+    { username: 'staff_khonkaen', password: hashedStaff, hospitalId: 'H003' },
+    { username: 'admin_songkhla', password: hashedAdmin, hospitalId: 'H004' },
+    { username: 'staff_songkhla', password: hashedStaff, hospitalId: 'H004' },
+    { username: 'admin_bangkok', password: hashedAdmin, hospitalId: 'H005' },
+    { username: 'staff_bangkok', password: hashedStaff, hospitalId: 'H005' },
+    { username: 'admin_phitsanulok', password: hashedAdmin, hospitalId: 'H006' },
+    { username: 'staff_phitsanulok', password: hashedStaff, hospitalId: 'H006' },
+  ]
+  for (const u of Users) {
+    await prisma.user.upsert({
+      where : { username: u.username },
+      update: { password: u.password, hospitalId: u.hospitalId },
+      create: u
+    })
+  }
+  console.log("ดึงข้อมูลผู้ใช้เสร็จสิ้น")
 }
-
 main()
     .catch((e)=>{
         console.error(e)

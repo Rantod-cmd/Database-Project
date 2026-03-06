@@ -9,7 +9,6 @@ export const getProvinces = async (req:Request,res:Response):Promise<void> => {
         const provinces:IProvince[] = await prisma.province.findMany();
         res.status(201).json(provinces)
     } catch (error) {
-        console.log("Error fetch provinces: ",error)
         res.status(500).json({message:"Cannot Fetch Provinces Data"})
     }
 }

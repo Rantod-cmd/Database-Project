@@ -50,6 +50,7 @@ export default function AffiliatedHospitals() {
     provinceId: "Bangkok Metropolis",
     beds: "",
     phone: "",
+    emergency: "",
   });
 
   useEffect(() => {
@@ -59,7 +60,7 @@ export default function AffiliatedHospitals() {
         const response = await apiClient.get("/hospital", {
           params: {
             search: search || undefined,
-            category: filterType === "All" ? undefined : filterType,
+            provinceId: filterType === "All" ? undefined : filterType,
             limit: pagination.limit,
             page: pagination.page,
           },
@@ -135,8 +136,8 @@ export default function AffiliatedHospitals() {
   ];
 
   const filterOptions = [
-    { value: "All", label: "ทุกประเภทสถานพยาบาล" },
-    ...categoryOptions,
+    { value: "All", label: "ทุกจังหวัด" },
+    ...provinceOptions,
   ];
 
   return (
