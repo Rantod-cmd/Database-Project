@@ -4,7 +4,13 @@ import type { IProvince } from '../../shared/types/schema/province'
 import type { IHospital } from '../../shared/types/schema/hospital'
 import { IDisease} from '../../shared/types/schema/disease'
 import { IUser } from '../../shared/types/schema/user'
-const prisma = new PrismaClient()
+const prisma = new PrismaClient({
+    datasources: {
+      db: {
+        url: process.env.DATABASE_URL,
+      },
+    },
+  })
 
 const main = async():Promise<void> => {
     console.log("ดึงข้อมูลอ้างอิง");
@@ -108,14 +114,13 @@ const main = async():Promise<void> => {
         )
       }
   console.log("ดึงข้อมูลอ้างอิงจังหวัดเสร็จสิ้น")
-
   const Hospital:IHospital[] = [
-    { id: "H001", name: "โรงพยาบาลศิริราช (Siriraj Hospital)", provinceId: "Bangkok Metropolis", status: "Active", beds: 2450},
-    { id: "H002", name: "โรงพยาบาลเชียงใหม่ราม", provinceId: "Chiang Mai", status: "Active", beds: 350},
-    { id: "H003", name: "รพ.สต. บ้านไร่", provinceId: "Khon Kaen", status: "Maintenance", beds: 0},
-    { id: "H004", name: "โรงพยาบาลสงขลานครินทร์", provinceId: "Songkhla", status: "Active", beds: 850},
-    { id: "H005", name: "โรงพยาบาลกรุงเทพ", provinceId: "Bangkok Metropolis", status: "Active", beds: 500},
-    { id: "H006", name: "โรงพยาบาลพุทธชินราช", provinceId: "Phitsanulok", status: "Active", beds: 900},
+    { id: "H001", name: "โรงพยาบาลศิริราช (Siriraj Hospital)", provinceId: "Bangkok Metropolis", status: "Active", beds: 2450, category: "General Hospital", phone: "02-419-7000", emergency: "High" },
+    { id: "H002", name: "โรงพยาบาลเชียงใหม่ราม", provinceId: "Chiang Mai", status: "Active", beds: 350, category: "General Hospital", phone: "053-935-111", emergency: "Available" },
+    { id: "H003", name: "รพ.สต. บ้านไร่", provinceId: "Khon Kaen", status: "Maintenance", beds: 0, category: "University Hospital", phone: "043-465-123", emergency: "Full" },
+    { id: "H004", name: "โรงพยาบาลสงขลานครินทร์", provinceId: "Songkhla", status: "Active", beds: 850, category: "General Hospital", phone: "074-325-444", emergency: "Available" },
+    { id: "H005", name: "โรงพยาบาลกรุงเทพ", provinceId: "Bangkok Metropolis", status: "Active", beds: 500, category: "Private Hospital", phone: "02-123-4567", emergency: "High" },
+    { id: "H006", name: "โรงพยาบาลพุทธชินราช", provinceId: "Phitsanulok", status: "Active", beds: 900, category: "University Hospital", phone: "055-252-111", emergency: "Available" },
   ]
   for (const h of Hospital) {
     await prisma.hospital.upsert({
@@ -124,14 +129,20 @@ const main = async():Promise<void> => {
         name: h.name,
         provinceId: h.provinceId,
         status: h.status,
-        beds:h.beds
+        beds: h.beds,
+        category: h.category,
+        phone: h.phone,
+        emergency: h.emergency
       },
       create: {
         id: h.id,
         name: h.name,
         provinceId: h.provinceId,
         status: h.status,
-        beds:h.beds
+        beds: h.beds,
+        category: h.category,
+        phone: h.phone,
+        emergency: h.emergency
       },
     })
   }

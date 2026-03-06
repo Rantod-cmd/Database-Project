@@ -9,8 +9,8 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url = "postgresql://user:password@db-postgres:5432/my_sql_db?schema=public"
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
 }
 
 model Province {
@@ -26,8 +26,10 @@ model Hospital {
   province  Province @relation(fields: [provinceId],references: [id])
   status  String
   beds  Int
+  category String?
+  phone String?
+  emergency String?
   users User[]
-
 }
 
 model Disease {
