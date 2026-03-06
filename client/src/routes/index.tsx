@@ -28,11 +28,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: "hospitals",
-                element: <AffiliatedHospitals />
+                element: <ProtectedRoute><AffiliatedHospitals /></ProtectedRoute>
             },
             {
                 path: "reporting",
-                element: <PatientReporting />
+                element: <ProtectedRoute><PatientReporting /></ProtectedRoute>
             },
             {
                 path: "contact",

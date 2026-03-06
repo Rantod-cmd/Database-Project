@@ -32,8 +32,10 @@ const Navbar = ({ activeTab }: NavbarProps) => {
   const navLinks = [
     { name: "แผนที่โรคระบาด", path: "/map" },
     { name: "ข้อมูลรายจังหวัด", path: "/provinces" },
-    { name: "โรงพยาบาลเครือข่าย", path: "/hospitals" },
-    { name: "รายงานผู้ป่วย", path: "/reporting" },
+    ...(hospital ? [
+      { name: "โรงพยาบาลเครือข่าย", path: "/hospitals" },
+      { name: "รายงานผู้ป่วย", path: "/reporting" },
+    ] : []),
     { name: "ติดต่อกองควบคุมโรค", path: "/contact" },
   ];
 
