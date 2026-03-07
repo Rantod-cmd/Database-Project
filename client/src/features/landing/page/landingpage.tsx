@@ -18,7 +18,7 @@ export default function LandingPage() {
                             <span className="text-[11px] font-black text-white uppercase tracking-[0.2em]">เครือข่ายเฝ้าระวังสุขภาพทางราชการ</span>
                         </div>
                         <h1 className="text-5xl lg:text-7xl font-black text-white leading-[1.1] tracking-tight">
-                            ระบบเฝ้าระวังภัย<br />
+                            ระบบเฝ้าระวัง<br />
                             <span className="text-medical-green-100">และรายงานโรคระบาด</span><br />
                             ระดับแห่งชาติ
                         </h1>

@@ -13,7 +13,7 @@ const Footer = () => {
                                 <ShieldCheck className="w-6 h-6 text-medical-green-100" />
                             </div>
                             <div className="flex flex-col">
-                                <span className="text-[14px] font-black uppercase tracking-tight">ระบบเฝ้าระวังสุขภาพแห่งชาติ</span>
+                                <span className="text-[14px] font-black uppercase tracking-tight">ระบบเฝ้าระวังสุขภาพ</span>
                                 <span className="text-[9px] font-bold uppercase tracking-widest text-medical-green-200">ราชอาณาจักรไทย</span>
                             </div>
                         </div>

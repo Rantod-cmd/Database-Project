@@ -90,7 +90,7 @@ const Navbar = ({ activeTab }: NavbarProps) => {
             </div>
             <div className="flex flex-col">
               <span className="text-[16px] font-black leading-tight uppercase tracking-tight text-slate-900">
-                ระบบเฝ้าระวังสุขภาพแห่งชาติ
+                National Health Portal
               </span>
               <span className="text-[10px] font-bold uppercase tracking-widest text-medical-green-600 mt-0.5">
                 กรมควบคุมโรค • ประเทศไทย
