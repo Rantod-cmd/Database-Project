@@ -265,47 +265,6 @@ Database-Project/
 ├── 🐳 docker-compose.yml
 └── 📝 README.md
 ```
-
----
-
-## 🌿 กฎการใช้ Git
-
-### ⚠️ กฎสำคัญ
-
-- ❌ **ห้ามทำงานบน `main` โดยตรง**
-- ✅ **รวมงานกันที่กิ่ง `develops`**
-
-### Workflow
-
-```bash
-# 1. อัปเดตโค้ดล่าสุด
-git checkout develops
-git pull origin develops
-
-# 2. สร้างกิ่งใหม่
-git checkout -b feature/ชื่อฟีเจอร์
-
-# 3. ทำงาน แล้ว commit
-git add .
-git commit -m "feat: เพิ่มฟีเจอร์..."
-git push origin feature/ชื่อฟีเจอร์
-
-# 4. เปิด Pull Request → develops
-```
-
-### Commit Message Convention
-
-| Prefix | ความหมาย | ตัวอย่าง |
-|--------|----------|----------|
-| `feat:` | เพิ่มฟีเจอร์ใหม่ | `feat: เพิ่มหน้า statistics` |
-| `fix:` | แก้ไข Bug | `fix: แก้ปัญหา login redirect` |
-| `docs:` | อัปเดต Document | `docs: อัปเดต README` |
-| `style:` | แก้ไข UI/CSS | `style: ปรับสี Navbar` |
-| `refactor:` | ปรับปรุงโค้ด | `refactor: แยก controller` |
-| `chore:` | งาน config/build | `chore: เพิ่ม docker volume` |
-
----
-
 ## 📡 API Endpoints
 
 ### Auth
@@ -330,40 +289,3 @@ git push origin feature/ชื่อฟีเจอร์
 |--------|------|----------|------|
 | `GET` | `/api/province` | รายชื่อจังหวัด | — |
 | `GET` | `/api/data-provinces` | ข้อมูลสถิติจังหวัด | — |
-
----
-
-## 🔧 คำสั่งที่ใช้บ่อย
-
-```bash
-# ดู containers ที่รันอยู่
-docker ps
-
-# ดู logs backend
-docker logs Backend --tail 50 -f
-
-# Rebuild หลังแก้โค้ด backend
-docker compose build server && docker compose up -d server
-
-# หยุด services ทั้งหมด
-docker compose down
-
-# หยุดและลบ volumes (ล้างข้อมูลทั้งหมด)
-docker compose down -v
-
-# รัน seed ใหม่
-docker exec Backend sh -c "cd /app/server && npx prisma db seed"
-
-# เปิด Prisma Studio (DB GUI)
-# http://localhost:5555
-
-# Git branches
-git branch -a
-git log --oneline -10
-```
-
----
-
-<div align="center">
-  <sub>Built with ❤️ for Thailand's Disease Surveillance System</sub>
-</div>
