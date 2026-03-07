@@ -1,30 +1,49 @@
-# 🏨 Database Project
+# 🏥 ระบบเฝ้าระวังโรค (Disease Surveillance System)
 
-> โปรเจ็คฝึกทำระบบจองที่พักแบบ Full-Stack พร้อมฐานข้อมูล 2 รูปแบบ
+> ระบบติดตามและรายงานสถานการณ์โรคแบบ Real-time สำหรับโรงพยาบาลทั่วประเทศไทย
+> พัฒนาด้วย Full-Stack TypeScript พร้อมฐานข้อมูล 2 รูปแบบ
 
 [![React](https://img.shields.io/badge/React-18+-61DAFB?style=flat&logo=react&logoColor=white)](https://reactjs.org/)
-[![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=flat&logo=node.js&logoColor=white)](https://nodejs.org/)
-[![MongoDB](https://img.shields.io/badge/MongoDB-6+-47A248?style=flat&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5+-3178C6?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-20+-339933?style=flat&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-latest-47A248?style=flat&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![SQL Server](https://img.shields.io/badge/SQL_Server-2022-CC2927?style=flat&logo=microsoftsqlserver&logoColor=white)](https://www.microsoft.com/sql-server)
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=flat&logo=docker&logoColor=white)](https://www.docker.com/)
 
 ---
 
 ## 📋 สารบัญ
 
-- [Tech Stack](#-tech-stack--architecture)
-- [เริ่มต้นใช้งาน](#-quick-start)
-- [โครงสร้างโปรเจ็ค](#-โครงสร้างโฟลเดอร์)
-- [กฎการใช้ Git](#-กฎการใช้-git-ร่วมกัน)
-- [คำแนะนำ](#-คำแนะนำสำหรับเพื่อนใหม่)
+- [ฟีเจอร์หลัก](#-ฟีเจอร์หลัก)
+- [Tech Stack](#️-tech-stack)
+- [Architecture](#-architecture)
+- [Quick Start](#-quick-start)
+- [Services & Ports](#-services--ports)
+- [โครงสร้างโปรเจ็ค](#-โครงสร้างโปรเจ็ค)
+- [กฎการใช้ Git](#-กฎการใช้-git)
+- [API Endpoints](#-api-endpoints)
 
 ---
 
-## 🛠️ Tech Stack & Architecture
+## ✨ ฟีเจอร์หลัก
+
+| หน้า | URL | คำอธิบาย | การเข้าถึง |
+|------|-----|----------|-----------|
+| หน้าแรก | `/` | Dashboard ภาพรวมระบบ | สาธารณะ |
+| แผนที่ | `/map` | แผนที่แสดงสถานการณ์โรครายจังหวัด | สาธารณะ |
+| ข้อมูลจังหวัด | `/provinces` | ตารางสถิติโรคแยกตามจังหวัด | สาธารณะ |
+| สถิติรายงาน | `/statistics` | รายงานโรคล่าสุดจากทุกโรงพยาบาล | สาธารณะ |
+| โรงพยาบาลเครือข่าย | `/hospitals` | รายชื่อโรงพยาบาลพร้อมข้อมูล | 🔒 Login |
+| รายงานผู้ป่วย | `/reporting` | ฟอร์มส่งรายงานโรค | 🔒 Login |
+
+---
+
+## 🛠️ Tech Stack
 
 <table>
 <thead>
 <tr>
-<th>ส่วนงาน</th>
+<th>Layer</th>
 <th>เทคโนโลยี</th>
 <th>หน้าที่</th>
 </tr>
@@ -32,195 +51,281 @@
 <tbody>
 <tr>
 <td><strong>Frontend</strong></td>
-<td>React (Vite)</td>
-<td>หน้าตาเว็บไซต์และการโต้ตอบกับผู้ใช้</td>
+<td>React 18 + Vite + TypeScript</td>
+<td>UI และการโต้ตอบกับผู้ใช้</td>
+</tr>
+<tr>
+<td><strong>Styling</strong></td>
+<td>Tailwind CSS + Lucide Icons</td>
+<td>Design System สีเขียวทางการแพทย์</td>
+</tr>
+<tr>
+<td><strong>State</strong></td>
+<td>Zustand</td>
+<td>จัดการ Auth State (JWT Token)</td>
 </tr>
 <tr>
 <td><strong>Backend</strong></td>
-<td>Node.js (Express)</td>
-<td>ระบบจัดการ API และ Logic หลังบ้าน</td>
+<td>Node.js + Express + TypeScript</td>
+<td>REST API</td>
 </tr>
 <tr>
-<td><strong>Database 1</strong></td>
-<td><strong>MongoDB</strong> (NoSQL)</td>
-<td>เก็บข้อมูลโรงแรม, รีวิว, และรายละเอียดห้องพัก</td>
+<td><strong>Auth</strong></td>
+<td>JWT + bcrypt</td>
+<td>ระบบ Login สำหรับบุคลากรโรงพยาบาล</td>
 </tr>
 <tr>
-<td><strong>Database 2</strong></td>
-<td><strong>MySQL/PostgreSQL</strong> (SQL)</td>
-<td>เก็บข้อมูลผู้ใช้ (User) และการจอง (Booking)</td>
+<td><strong>DB 1 (NoSQL)</strong></td>
+<td>MongoDB + Mongoose</td>
+<td>เก็บรายงานผู้ป่วย (14,000+ records)</td>
+</tr>
+<tr>
+<td><strong>DB 2 (SQL)</strong></td>
+<td>SQL Server 2022 + Prisma ORM</td>
+<td>เก็บข้อมูลโรค, โรงพยาบาล, จังหวัด, ผู้ใช้</td>
 </tr>
 <tr>
 <td><strong>Infrastructure</strong></td>
-<td><strong>Docker</strong></td>
-<td>จำลองฐานข้อมูลให้เหมือนกันทุกเครื่อง</td>
+<td>Docker + Docker Compose</td>
+<td>รัน 5 services พร้อมกัน</td>
 </tr>
 </tbody>
 </table>
 
 ---
 
+## 🏗️ Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                        Client (React)                        │
+│                     localhost:5173/5174                      │
+└───────────────────────────┬─────────────────────────────────┘
+                            │ HTTP / REST API
+                            ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    Server (Express)                          │
+│                     localhost:5207                           │
+│                                                             │
+│   /api/auth      /api/report    /api/hospital               │
+│   /api/province  /api/disease   /api/data-provinces         │
+└──────────────┬────────────────────────┬─────────────────────┘
+               │                        │
+               ▼                        ▼
+┌──────────────────────┐   ┌────────────────────────┐
+│   MongoDB            │   │   SQL Server 2022       │
+│   localhost:27017    │   │   localhost:1433         │
+│                      │   │                          │
+│   collection:        │   │   tables:                │
+│   • reports          │   │   • Province             │
+│                      │   │   • Hospital             │
+│                      │   │   • Disease              │
+│                      │   │   • User                 │
+└──────────────────────┘   └────────────────────────┘
+```
+
+---
+
 ## 🚀 Quick Start
 
-### ขั้นตอนที่ 1: Clone โปรเจ็ค
+### สิ่งที่ต้องมีก่อน
+
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) (ติดตั้งแล้วเปิดทิ้งไว้)
+- Git
+
+### ขั้นตอนที่ 1 — Clone โปรเจ็ค
 
 ```bash
 git clone <repository-url>
-cd agoda-clone
+cd Database-Project
 ```
 
-### ขั้นตอนที่ 2: เริ่มต้นฐานข้อมูลด้วย Docker 🐳
-
-ไม่ต้องติดตั้ง MySQL หรือ MongoDB ลงเครื่อง ใช้ Docker แทนได้เลย!
+### ขั้นตอนที่ 2 — รัน Docker (ครั้งแรก)
 
 ```bash
-# 1. เปิด Docker Desktop ทิ้งไว้
-# 2. รันคำสั่งนี้
-docker-compose up -d
+docker compose up -d
 ```
 
-✅ **ฐานข้อมูลพร้อมใช้งานแล้ว!**
-- 🔹 **MongoDB Port:** `27017`
+> ระบบจะ build และเริ่ม 5 services อัตโนมัติ ใช้เวลาประมาณ 2–3 นาทีครั้งแรก
 
-### ขั้นตอนที่ 3: ติดตั้ง Dependencies
+### ขั้นตอนที่ 3 — Seed ข้อมูลเริ่มต้น (SQL Server)
 
-#### Backend Setup
 ```bash
 cd server
-npm install
-npm start
+npx prisma db seed
 ```
 
-#### Frontend Setup
+### ขั้นตอนที่ 4 — Import ข้อมูลรายงาน (MongoDB)
+
 ```bash
-cd client
-npm install
-npm run dev
+docker cp documents-3.json DB-mongo:/tmp/documents-3.json
+docker exec DB-mongo mongoimport \
+  --uri "mongodb://admin:password@localhost:27017/mydatabase?authSource=admin" \
+  --collection reports \
+  --file /tmp/documents-3.json \
+  --jsonArray
 ```
 
-🎉 **เสร็จแล้ว!** เปิดบราวเซอร์ไปที่ `http://localhost:5173`
+🎉 **เปิดเว็บที่** `http://localhost:5173`
 
 ---
 
-## 📂 โครงสร้างโฟลเดอร์
+## 🌐 Services & Ports
+
+| Service | Container | Port | URL |
+|---------|-----------|------|-----|
+| Frontend (React) | `Frontend` | `5173` | http://localhost:5173 |
+| Backend (Express) | `Backend` | `5207` | http://localhost:5207 |
+| Prisma Studio | `Backend` | `5555` | http://localhost:5555 |
+| MongoDB | `DB-mongo` | `27017` | — |
+| Mongo Express (UI) | `DB-mongo-ui` | `8081` | http://localhost:8081 |
+| SQL Server | `DB-sqlserver` | `1433` | — |
+
+### ข้อมูล Login สำหรับ Tools
+
+| Tool | Username | Password |
+|------|----------|----------|
+| Mongo Express | `admin` | `password` |
+
+---
+
+## 📂 โครงสร้างโปรเจ็ค
 
 ```
-agoda-clone/
+Database-Project/
 │
-├── 📁 client/              # โค้ดฝั่ง React (Frontend)
-│   ├── src/
-│   ├── public/
-│   └── package.json
+├── 📁 client/                    # Frontend (React + Vite)
+│   └── src/
+│       ├── api/                  # apiClient (axios + interceptors)
+│       ├── components/           # Navbar, Pagination
+│       ├── features/
+│       │   ├── landing/          # หน้าแรก
+│       │   ├── map/              # แผนที่จังหวัด
+│       │   ├── dash_txt/         # ตารางข้อมูลจังหวัด
+│       │   ├── hospitals/        # โรงพยาบาลเครือข่าย
+│       │   ├── statistics/       # รายงานโรคล่าสุด ← ใหม่
+│       │   ├── login/
+│       │   └── register/
+│       ├── routes/               # React Router config
+│       └── stores/               # Zustand (authStore)
 │
-├── 📁 server/              # โค้ดฝั่ง Express (Backend)
-│   ├── routes/
-│   ├── models/
-│   ├── controllers/
-│   └── package.json
+├── 📁 server/                    # Backend (Express)
+│   ├── controllers/              # Business logic
+│   ├── models/                   # Mongoose schemas
+│   ├── routes/                   # Express routes
+│   ├── middleware/               # Auth middleware (JWT)
+│   ├── prisma/                   # Schema + Migrations
+│   └── seeds/                    # Seed data
 │
-├── 🐳 docker-compose.yml   # ไฟล์ตั้งค่าฐานข้อมูล
-├── 📝 README.md            # คุณกำลังอ่านไฟล์นี้อยู่!
-└── 🚫 .gitignore           # ไฟล์ที่ไม่ต้องอัปโหลด
+├── 📁 shared/                    # TypeScript types ใช้ร่วมกัน
+│   └── types/schema/             # IReport, IHospital, IDisease ...
+│
+├── 🐳 docker-compose.yml
+└── 📝 README.md
 ```
 
 ---
 
-## 🌿 กฎการใช้ Git ร่วมกัน
+## 🌿 กฎการใช้ Git
 
 ### ⚠️ กฎสำคัญ
-- ❌ **ห้ามทำงานบนกิ่ง `main` โดยตรง**
-- ✅ **รวมงานกันที่กิ่ง `develop`**
 
-### 📝 Workflow การทำงาน
+- ❌ **ห้ามทำงานบน `main` โดยตรง**
+- ✅ **รวมงานกันที่กิ่ง `develops`**
 
-#### 1️⃣ อัปเดตงานล่าสุด
+### Workflow
+
 ```bash
-git checkout develop
-git pull origin develop
-```
+# 1. อัปเดตโค้ดล่าสุด
+git checkout develops
+git pull origin develops
 
-#### 2️⃣ สร้างกิ่งใหม่สำหรับฟีเจอร์ของคุณ
-```bash
-git checkout -b feature/ชื่อฟีเจอร์ของคุณ
-```
-**ตัวอย่าง:** `feature/login-page`, `feature/hotel-search`
+# 2. สร้างกิ่งใหม่
+git checkout -b feature/ชื่อฟีเจอร์
 
-#### 3️⃣ บันทึกงาน (Commit)
-```bash
+# 3. ทำงาน แล้ว commit
 git add .
-git commit -m "✨ feat: เพิ่มหน้า login"
-git push origin feature/ชื่อฟีเจอร์ของคุณ
+git commit -m "feat: เพิ่มฟีเจอร์..."
+git push origin feature/ชื่อฟีเจอร์
+
+# 4. เปิด Pull Request → develops
 ```
 
-#### 4️⃣ ส่ง Pull Request
-1. ไปที่หน้า GitHub Repository
-2. กดปุ่ม **"Compare & pull request"**
-3. รอ Team Lead Review และ Merge
-
-### 📌 Commit Message Convention
+### Commit Message Convention
 
 | Prefix | ความหมาย | ตัวอย่าง |
 |--------|----------|----------|
-| `✨ feat:` | เพิ่มฟีเจอร์ใหม่ | `✨ feat: เพิ่มระบบค้นหาโรงแรม` |
-| `🐛 fix:` | แก้ไข Bug | `🐛 fix: แก้ปัญหาการ Login` |
-| `📝 docs:` | เพิ่ม/แก้ไข Document | `📝 docs: อัปเดต README` |
-| `💄 style:` | แก้ไข CSS/UI | `💄 style: ปรับสี Header` |
-| `♻️ refactor:` | ปรับปรุงโค้ด | `♻️ refactor: ทำ API ให้กระชับขึ้น` |
+| `feat:` | เพิ่มฟีเจอร์ใหม่ | `feat: เพิ่มหน้า statistics` |
+| `fix:` | แก้ไข Bug | `fix: แก้ปัญหา login redirect` |
+| `docs:` | อัปเดต Document | `docs: อัปเดต README` |
+| `style:` | แก้ไข UI/CSS | `style: ปรับสี Navbar` |
+| `refactor:` | ปรับปรุงโค้ด | `refactor: แยก controller` |
+| `chore:` | งาน config/build | `chore: เพิ่ม docker volume` |
 
 ---
 
-## 💡 คำแนะนำสำหรับเพื่อนใหม่
+## 📡 API Endpoints
 
-### สิ่งที่ต้องระวัง
+### Auth
+| Method | Path | คำอธิบาย | Auth |
+|--------|------|----------|------|
+| `POST` | `/api/auth/login` | เข้าสู่ระบบ | — |
+| `POST` | `/api/auth/register` | สมัครสมาชิก | — |
 
-| ❌ ห้ามทำ | ✅ ควรทำ |
-|-----------|----------|
-| ลบไฟล์ `.env` | เก็บไฟล์ `.env` ไว้ (มีรหัสผ่าน DB) |
-| อัปโหลด `node_modules` | ให้ `.gitignore` จัดการให้ |
-| ทำงานบน `main` | ทำงานบน `feature/*` เสมอ |
-| แก้โค้ดแล้วไม่ commit | commit บ่อยๆ เพื่อป้องกันงานหาย |
+### Reports
+| Method | Path | คำอธิบาย | Auth |
+|--------|------|----------|------|
+| `GET` | `/api/report/recent` | รายงานล่าสุด 50 รายการ | — |
+| `POST` | `/api/report` | ส่งรายงานผู้ป่วย | 🔒 |
 
-### เจอปัญหา?
+### Hospitals
+| Method | Path | คำอธิบาย | Auth |
+|--------|------|----------|------|
+| `GET` | `/api/hospital` | รายชื่อโรงพยาบาล (search, page) | 🔒 |
 
-1. **ถ่ายภาพหน้าจอ Terminal** ที่มี Error
-2. **ส่งเข้ากลุ่มทันที** พร้อมบอกว่าทำอะไรไปบ้าง
-3. **อย่าเก็บงาน!** ยิ่งถามเร็ว แก้เร็ว 
-
-### Tips
-
-- 📖 **อ่าน Error Message** ให้ดี มันบอกปัญหาตรงๆ เลย
-- 🔄 **Pull บ่อยๆ** เพื่อไม่ให้โค้ดคนอื่น conflict
-- 💬 **ถาม-ตอบ** ในกลุ่มบ่อยๆ ทุกคนเคยเป็นมือใหม่มาก่อน
-- 🎨 **ลองผิดลองถูก** อย่ากลัว! มี Git ช่วยย้อนกลับได้เสมอ
+### Provinces
+| Method | Path | คำอธิบาย | Auth |
+|--------|------|----------|------|
+| `GET` | `/api/province` | รายชื่อจังหวัด | — |
+| `GET` | `/api/data-provinces` | ข้อมูลสถิติจังหวัด | — |
 
 ---
 
 ## 🔧 คำสั่งที่ใช้บ่อย
 
 ```bash
-# ดูว่าอยู่กิ่งไหน
-git branch
-
-# ดูไฟล์ที่เปลี่ยน
-git status
-
-# ดู commit ล่าสุด
-git log --oneline
-
-# หยุด Docker
-docker-compose down
-
-# เช็ค Docker ที่รันอยู่
+# ดู containers ที่รันอยู่
 docker ps
+
+# Rebuild หลังแก้โค้ด backend
+docker compose build server && docker compose up -d server
+
+# หยุด services ทั้งหมด
+docker compose down
+
+# ดู logs backend
+docker logs Backend --tail 50 -f
+
+# เปิด Prisma Studio (DB GUI)
+# http://localhost:5555
+
+# Git branches
+git branch -a
+git log --oneline -10
 ```
 
 ---
 
 ## 🤝 Contributing
 
-เรายินดีรับ Contribution จากทุกคน! 
 1. Fork โปรเจ็ค
-2. สร้าง Feature Branch
-3. ส่ง Pull Request
+2. สร้าง Feature Branch (`git checkout -b feature/amazing-feature`)
+3. Commit (`git commit -m 'feat: add amazing feature'`)
+4. Push (`git push origin feature/amazing-feature`)
+5. เปิด Pull Request → `develops`
 
 ---
+
+<div align="center">
+  <sub>Built with ❤️ for Thailand's Disease Surveillance System</sub>
+</div>
