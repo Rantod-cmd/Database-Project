@@ -123,9 +123,9 @@
 └──────────────────────┘   └────────────────────────┘
 ```
 
-### Database Structure Diagram
+### เอกสารการออกแบบฐานข้อมูล
 
-![Database Structure Diagram](database_structure_diagram.png)
+![Database Structure Diagram](เอกสารการออกแบบฐานข้อมูล.png)
 
 ---
 
