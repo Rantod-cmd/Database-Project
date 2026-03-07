@@ -40,7 +40,7 @@ export default function Login() {
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
               <Phone className="w-3.5 h-3.5 text-medical-green-100" />
-              <span>Hotline: 1422 (24 Hours)</span>
+              <span>สายด่วน: 1422 (24 ชั่วโมง)</span>
             </div>
             <div className="flex items-center gap-2">
               <Mail className="w-3.5 h-3.5 text-medical-green-100" />
@@ -50,11 +50,11 @@ export default function Login() {
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2 border-r border-white/10 pr-6">
               <Clock className="w-3.5 h-3.5 text-medical-green-100" />
-              <span>Mon - Fri: 08:30 - 16:30</span>
+              <span>จันทร์ – ศุกร์: 08:30 – 16:30</span>
             </div>
             <div className="flex items-center gap-4">
-              <button className="hover:text-white transition-colors">Language: EN</button>
-              <button className="hover:text-white transition-colors">TH</button>
+              <button className="hover:text-white transition-colors">ภาษา: ไทย</button>
+              <button className="hover:text-white transition-colors">EN</button>
             </div>
           </div>
         </div>
@@ -69,10 +69,10 @@ export default function Login() {
           </div>
           <div className="flex flex-col">
             <span className="text-[16px] font-black leading-tight uppercase tracking-tight text-slate-900">
-              National Health Portal
+              ระบบเฝ้าระวังสุขภาพแห่งชาติ
             </span>
             <span className="text-[10px] font-bold uppercase tracking-widest text-medical-green-600 mt-0.5">
-              Disease Control • Thailand
+              กรมควบคุมโรค • ประเทศไทย
             </span>
           </div>
         </div>
@@ -171,24 +171,6 @@ export default function Login() {
               </button>
             </form>
 
-            {/* Divider */}
-            <div className="flex items-center gap-3 my-6">
-              <div className="flex-1 h-px bg-slate-200"></div>
-              <span className="text-xs text-slate-400 font-medium">หรือ</span>
-              <div className="flex-1 h-px bg-slate-200"></div>
-            </div>
-
-            {/* Register Link */}
-            <div className="text-center">
-              <p className="text-sm text-slate-500 mb-2">ยังไม่มีบัญชี?</p>
-              <button
-                onClick={() => navigate('/register')}
-                className="text-sm font-bold text-primary hover:text-primary-dark transition-colors inline-flex items-center gap-1"
-              >
-                <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>person_add</span>
-                สมัครสมาชิก
-              </button>
-            </div>
           </div>
         </div>
       </main>
@@ -197,7 +179,7 @@ export default function Login() {
       <footer className="bg-medical-green-900 text-white/70 py-4">
         <div className="max-w-[1400px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-2 text-xs font-medium">
           <p>© 2026 กองระบาดวิทยา กรมควบคุมโรค กระทรวงสาธารณสุข</p>
-          <p className="font-[family-name:var(--font-en)]">Department of Disease Control, Ministry of Public Health</p>
+          <p>สงวนลิขสิทธิ์ทุกประการ</p>
         </div>
       </footer>
     </div>

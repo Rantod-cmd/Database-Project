@@ -13,8 +13,8 @@ const Footer = () => {
                                 <ShieldCheck className="w-6 h-6 text-medical-green-100" />
                             </div>
                             <div className="flex flex-col">
-                                <span className="text-[14px] font-black uppercase tracking-tight">National Health Portal</span>
-                                <span className="text-[9px] font-bold uppercase tracking-widest text-medical-green-200">Kingdom of Thailand</span>
+                                <span className="text-[14px] font-black uppercase tracking-tight">ระบบเฝ้าระวังสุขภาพแห่งชาติ</span>
+                                <span className="text-[9px] font-bold uppercase tracking-widest text-medical-green-200">ราชอาณาจักรไทย</span>
                             </div>
                         </div>
                         <p className="text-[13px] text-medical-green-100/70 leading-relaxed font-medium">
@@ -36,7 +36,7 @@ const Footer = () => {
 
                     {/* Column 2: Quick Links */}
                     <div>
-                        <h4 className="text-[12px] font-black uppercase tracking-[0.2em] mb-6 text-medical-green-200">Sitemap / เมนู</h4>
+                        <h4 className="text-[12px] font-black uppercase tracking-[0.2em] mb-6 text-medical-green-200">แผนผังเว็บไซต์</h4>
                         <div className="grid grid-cols-1 gap-4 text-[13px] font-bold text-medical-green-100/80">
                             <Link to="/map" className="hover:text-white transition-colors">แผนที่โรคระบาด</Link>
                             <Link to="/provinces" className="hover:text-white transition-colors">ข้อมูลรายจังหวัด</Link>
@@ -48,7 +48,7 @@ const Footer = () => {
 
                     {/* Column 3: Contact Details */}
                     <div>
-                        <h4 className="text-[12px] font-black uppercase tracking-[0.2em] mb-6 text-medical-green-200">Contact / ติดต่อ</h4>
+                        <h4 className="text-[12px] font-black uppercase tracking-[0.2em] mb-6 text-medical-green-200">ติดต่อ</h4>
                         <div className="flex flex-col gap-5">
                             <div className="flex items-start gap-4">
                                 <MapPin className="w-4 h-4 text-medical-green-100 mt-1" />
@@ -60,7 +60,7 @@ const Footer = () => {
                             </div>
                             <div className="flex items-center gap-4">
                                 <Phone className="w-4 h-4 text-medical-green-100" />
-                                <p className="text-[13px] text-medical-green-100/80">Hotline: 1422</p>
+                                <p className="text-[13px] text-medical-green-100/80">สายด่วน: 1422</p>
                             </div>
                             <div className="flex items-center gap-4">
                                 <Globe className="w-4 h-4 text-medical-green-100" />
@@ -71,7 +71,7 @@ const Footer = () => {
 
                     {/* Column 4: Newsletter/Updates */}
                     <div>
-                        <h4 className="text-[12px] font-black uppercase tracking-[0.2em] mb-6 text-medical-green-200">Subscription / จดหมายข่าว</h4>
+                        <h4 className="text-[12px] font-black uppercase tracking-[0.2em] mb-6 text-medical-green-200">จดหมายข่าว</h4>
                         <p className="text-[12px] text-medical-green-100/60 mb-5 leading-relaxed font-medium">
                             สมัครรับข้อมูลข่าวสารเฝ้าระวังโรคระบาดรายวันผ่านช่องทางอีเมลทางราชการ
                         </p>
@@ -90,11 +90,11 @@ const Footer = () => {
 
                 {/* Bottom Bar */}
                 <div className="pt-10 flex flex-col md:flex-row justify-between items-center gap-6 text-[11px] font-bold uppercase tracking-widest text-medical-green-100/40">
-                    <p>© 2026 Department of Disease Control. All Rights Reserved.</p>
+                    <p>© 2026 กรมควบคุมโรค สงวนลิขสิทธิ์ทุกประการ</p>
                     <div className="flex gap-8">
-                        <button className="hover:text-white transition-colors">Privacy Policy</button>
-                        <button className="hover:text-white transition-colors">Terms of Service</button>
-                        <button className="hover:text-white transition-colors">Cookie Settings</button>
+                        <button className="hover:text-white transition-colors">นโยบายความเป็นส่วนตัว</button>
+                        <button className="hover:text-white transition-colors">ข้อกำหนดการใช้งาน</button>
+                        <button className="hover:text-white transition-colors">ตั้งค่าคุกกี้</button>
                     </div>
                 </div>
             </div>

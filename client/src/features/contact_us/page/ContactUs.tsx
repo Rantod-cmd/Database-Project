@@ -5,12 +5,12 @@ export default function ContactUs() {
                 {/* Left Column: Contact Info */}
                 <div className="flex flex-col gap-10">
                     <div className="flex flex-col gap-4">
-                        <span className="text-[10px] font-black text-emerald-600 uppercase tracking-[0.3em]">Connect With Us</span>
+                        <span className="text-[10px] font-black text-emerald-600 uppercase tracking-[0.3em]">ติดต่อเรา</span>
                         <h1 className="text-5xl font-black text-slate-900 tracking-tight leading-[1.1] font-heading">
-                            How can we <span className="text-emerald-600 underline decoration-emerald-200 decoration-8 underline-offset-4">assist</span> your agency?
+                            เราสามารถ<span className="text-emerald-600 underline decoration-emerald-200 decoration-8 underline-offset-4">ช่วยเหลือ</span>หน่วยงานของคุณได้อย่างไร?
                         </h1>
                         <p className="text-slate-500 text-lg leading-relaxed max-w-lg">
-                            Our specialized team provides 24/7 technical support and administrative guidance for the national epidemic surveillance network.
+                            ทีมผู้เชี่ยวชาญของเราให้การสนับสนุนด้านเทคนิคและการบริหารตลอด 24 ชั่วโมง สำหรับเครือข่ายเฝ้าระวังโรคระบาดแห่งชาติ
                         </p>
                     </div>
 
@@ -20,10 +20,10 @@ export default function ContactUs() {
                                 <span className="material-symbols-outlined text-[24px]">location_on</span>
                             </div>
                             <div>
-                                <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest mb-1">MOPH Headquarters</h3>
+                                <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest mb-1">สำนักงานใหญ่ กระทรวงสาธารณสุข</h3>
                                 <p className="text-slate-500 text-sm leading-relaxed">
-                                    Building 1, Tiwanon Road, Mueang District,<br />
-                                    Nonthaburi 11000, Thailand
+                                    ตึก 1 ถนนติวานนท์ อำเภอเมือง<br />
+                                    จังหวัดนนทบุรี 11000
                                 </p>
                             </div>
                         </div>
@@ -33,10 +33,10 @@ export default function ContactUs() {
                                 <span className="material-symbols-outlined text-[24px]">call</span>
                             </div>
                             <div>
-                                <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest mb-1">Direct Assistance</h3>
+                                <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest mb-1">สายตรงช่วยเหลือ</h3>
                                 <p className="text-slate-500 text-sm leading-relaxed">
-                                    Support Line: +66 (0) 2590 1000<br />
-                                    Emergency Hotline: 1422
+                                    โทรศัพท์: +66 (0) 2590 1000<br />
+                                    สายด่วนฉุกเฉิน: 1422
                                 </p>
                             </div>
                         </div>
@@ -46,10 +46,10 @@ export default function ContactUs() {
                                 <span className="material-symbols-outlined text-[24px]">mail</span>
                             </div>
                             <div>
-                                <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest mb-1">Electronic Mail</h3>
+                                <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest mb-1">อีเมล</h3>
                                 <p className="text-slate-500 text-sm leading-relaxed">
-                                    General: info@moph.go.th<br />
-                                    Reporting: disease.control@ddc.mail.go.th
+                                    ทั่วไป: info@moph.go.th<br />
+                                    รายงานโรค: disease.control@ddc.mail.go.th
                                 </p>
                             </div>
                         </div>
@@ -76,50 +76,50 @@ export default function ContactUs() {
                     <div className="relative z-10 p-10 md:p-14 bg-white/70 backdrop-blur-2xl rounded-[40px] border border-white shadow-2xl shadow-emerald-900/10">
                         <div className="flex flex-col gap-8">
                             <div className="flex flex-col gap-2">
-                                <h2 className="text-2xl font-black text-slate-900 font-heading tracking-tight">Send a Dispatch</h2>
-                                <p className="text-slate-500 text-sm font-medium">Please provide accurate details for official logging.</p>
+                                <h2 className="text-2xl font-black text-slate-900 font-heading tracking-tight">ส่งข้อความถึงเรา</h2>
+                                <p className="text-slate-500 text-sm font-medium">กรุณากรอกข้อมูลให้ถูกต้องเพื่อการบันทึกอย่างเป็นทางการ</p>
                             </div>
 
                             <form className="flex flex-col gap-6">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="flex flex-col gap-2">
-                                        <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Full Name</label>
+                                        <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">ชื่อ-นามสกุล</label>
                                         <input
                                             type="text"
-                                            placeholder="e.g. Dr. Somchai Doe"
+                                            placeholder="เช่น นพ. สมชาย ใจดี"
                                             className="w-full px-6 py-4 rounded-2xl bg-white border border-slate-100 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/5 outline-none transition-all font-medium text-slate-700"
                                         />
                                     </div>
                                     <div className="flex flex-col gap-2">
-                                        <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Agency / Dept.</label>
+                                        <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">หน่วยงาน / กรม</label>
                                         <input
                                             type="text"
-                                            placeholder="e.g. Bamrasnaradura"
+                                            placeholder="เช่น โรงพยาบาลบำราศนราดูร"
                                             className="w-full px-6 py-4 rounded-2xl bg-white border border-slate-100 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/5 outline-none transition-all font-medium text-slate-700"
                                         />
                                     </div>
                                 </div>
 
                                 <div className="flex flex-col gap-2">
-                                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Inquiry Subject</label>
+                                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">หัวข้อการสอบถาม</label>
                                     <input
                                         type="text"
-                                        placeholder="Data verification request..."
+                                        placeholder="เช่น ขอตรวจสอบข้อมูลรายงาน..."
                                         className="w-full px-6 py-4 rounded-2xl bg-white border border-slate-100 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/5 outline-none transition-all font-medium text-slate-700"
                                     />
                                 </div>
 
                                 <div className="flex flex-col gap-2">
-                                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Your Message</label>
+                                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">ข้อความของคุณ</label>
                                     <textarea
                                         rows={6}
-                                        placeholder="Describe your inquiry in detail..."
+                                        placeholder="อธิบายรายละเอียดการสอบถามของคุณ..."
                                         className="w-full px-6 py-5 rounded-3xl bg-white border border-slate-100 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/5 outline-none transition-all font-medium text-slate-700 resize-none"
                                     ></textarea>
                                 </div>
 
                                 <button className="mt-4 w-full py-5 rounded-2xl bg-emerald-600 text-white font-black shadow-2xl shadow-emerald-600/30 hover:bg-emerald-700 transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3">
-                                    Submit Official Dispatch
+                                    ส่งข้อความ
                                     <span className="material-symbols-outlined text-[20px]">send</span>
                                 </button>
                             </form>

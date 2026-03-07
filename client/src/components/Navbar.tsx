@@ -52,7 +52,7 @@ const Navbar = ({ activeTab }: NavbarProps) => {
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
               <Phone className="w-3.5 h-3.5 text-medical-green-100" />
-              <span>Hotline: 1422 (24 Hours)</span>
+              <span>สายด่วน: 1422 (24 ชั่วโมง)</span>
             </div>
             <div className="flex items-center gap-2">
               <Mail className="w-3.5 h-3.5 text-medical-green-100" />
@@ -62,13 +62,13 @@ const Navbar = ({ activeTab }: NavbarProps) => {
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2 border-r border-white/10 pr-6">
               <Clock className="w-3.5 h-3.5 text-medical-green-100" />
-              <span>Mon - Fri: 08:30 - 16:30</span>
+              <span>จันทร์ – ศุกร์: 08:30 – 16:30</span>
             </div>
             <div className="flex items-center gap-4">
               <button className="hover:text-white transition-colors">
-                Language: EN
+                ภาษา: ไทย
               </button>
-              <button className="hover:text-white transition-colors">TH</button>
+              <button className="hover:text-white transition-colors">EN</button>
             </div>
           </div>
         </div>
@@ -90,10 +90,10 @@ const Navbar = ({ activeTab }: NavbarProps) => {
             </div>
             <div className="flex flex-col">
               <span className="text-[16px] font-black leading-tight uppercase tracking-tight text-slate-900">
-                National Health Portal
+                ระบบเฝ้าระวังสุขภาพแห่งชาติ
               </span>
               <span className="text-[10px] font-bold uppercase tracking-widest text-medical-green-600 mt-0.5">
-                Disease Control • Thailand
+                กรมควบคุมโรค • ประเทศไทย
               </span>
             </div>
           </Link>
@@ -151,7 +151,7 @@ const Navbar = ({ activeTab }: NavbarProps) => {
                   className="flex items-center gap-2 px-4 py-2 text-slate-400 hover:text-red-600 rounded-md text-[12px] font-black uppercase tracking-widest transition-all"
                 >
                   <LogOut className="w-4 h-4" />
-                  Logout
+                  ออกจากระบบ
                 </button>
               </div>
             ) : (
@@ -160,7 +160,7 @@ const Navbar = ({ activeTab }: NavbarProps) => {
                 onClick={() => navigate("/login")}
               >
                 <LogIn className="w-4 h-4" />
-                Internal Login
+                เข้าสู่ระบบบุคลากร
               </button>
             )}
           </div>

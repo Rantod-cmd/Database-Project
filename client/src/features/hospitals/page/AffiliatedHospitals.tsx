@@ -147,7 +147,7 @@ export default function AffiliatedHospitals() {
         <div className="space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-medical-green-50 text-medical-green-700 rounded text-[10px] font-black uppercase tracking-[0.2em] border border-medical-green-100">
             <Hospital className="w-3 h-3" />
-            Facility Network Hub
+            ศูนย์เครือข่ายสถานพยาบาล
           </div>
           <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight font-heading">
             เครือข่ายสถานพยาบาล
@@ -284,20 +284,20 @@ export default function AffiliatedHospitals() {
             <div className="grid grid-cols-2 gap-4 py-6 border-y border-slate-50">
               <div>
                 <p className="text-[9px] font-black text-slate-300 uppercase tracking-widest mb-1">
-                  Capacity
+                  ศักยภาพ
                 </p>
                 <div className="flex items-baseline gap-1.5">
                   <span className="text-xl font-black text-slate-800">
                     {Number(f.beds).toLocaleString()}
                   </span>
                   <span className="text-[10px] font-bold text-slate-300">
-                    Beds
+                    เตียง
                   </span>
                 </div>
               </div>
               <div>
                 <p className="text-[9px] font-black text-slate-300 uppercase tracking-widest mb-1">
-                  Emergency
+                  ฉุกเฉิน
                 </p>
                 <div className="flex items-center gap-2">
                   <div
@@ -350,7 +350,7 @@ export default function AffiliatedHospitals() {
                   ลงทะเบียนหน่วยงาน
                 </h3>
                 <p className="text-medical-green-200/50 text-[10px] font-black uppercase tracking-widest">
-                  Network Registration Portal
+                  พอร์ทัลลงทะเบียนเครือข่าย
                 </p>
               </div>
               <button
@@ -452,11 +452,11 @@ export default function AffiliatedHospitals() {
                 onClick={() => setIsAdding(false)}
                 className="text-[11px] font-black text-slate-400 uppercase tracking-widest hover:text-slate-600 transition-all"
               >
-                Cancel
+                ยกเลิก
               </button>
               <button className="px-10 py-4 bg-medical-green-900 text-white rounded font-black text-[12px] uppercase tracking-widest shadow-lg shadow-emerald-900/20 hover:bg-medical-green-800 transition-all flex items-center gap-2">
                 <ArrowUpRight className="w-4 h-4" />
-                Submit registration
+                ยืนยันการลงทะเบียน
               </button>
             </div>
           </div>

@@ -15,7 +15,7 @@ export default function LandingPage() {
                     <div className="flex-1 text-left space-y-8">
                         <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full border border-white/10">
                             <ShieldCheck className="w-4 h-4 text-medical-green-100" />
-                            <span className="text-[11px] font-black text-white uppercase tracking-[0.2em]">Official Health Surveillance Network</span>
+                            <span className="text-[11px] font-black text-white uppercase tracking-[0.2em]">เครือข่ายเฝ้าระวังสุขภาพทางราชการ</span>
                         </div>
                         <h1 className="text-5xl lg:text-7xl font-black text-white leading-[1.1] tracking-tight">
                             ระบบเฝ้าระวังภัย<br />
@@ -56,8 +56,8 @@ export default function LandingPage() {
                                     <Activity className="w-8 h-8" />
                                 </div>
                                 <div className="text-left">
-                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Global Status</p>
-                                    <p className="text-xl font-black text-slate-900 uppercase">Operational</p>
+                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">สถานะระบบ</p>
+                                    <p className="text-xl font-black text-slate-900 uppercase">ปฏิบัติการ</p>
                                 </div>
                             </div>
                         </div>
@@ -72,7 +72,7 @@ export default function LandingPage() {
                         <div className="bg-white p-10 rounded-md border border-slate-200 shadow-official group hover:-translate-y-2 transition-all duration-300">
                             <div className="flex flex-col gap-6 text-left">
                                 <div className="flex items-center justify-between">
-                                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Current Cases</span>
+                                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">ผู้ป่วยปัจจุบัน</span>
                                     <Activity className="w-4 h-4 text-rose-500" />
                                 </div>
                                 <div className="flex flex-col">
@@ -80,7 +80,7 @@ export default function LandingPage() {
                                     <span className="text-[11px] font-bold text-slate-400 mt-1 uppercase">ผู้ติดเชื้อยืนยันสะสม</span>
                                 </div>
                                 <div className="pt-6 border-t border-slate-50 flex items-center justify-between">
-                                    <span className="text-[10px] font-black text-emerald-600">+12.4% Weekly</span>
+                                    <span className="text-[10px] font-black text-emerald-600">+12.4% รายสัปดาห์</span>
                                     <div className="w-16 h-1 bg-medical-green-100 rounded-full overflow-hidden">
                                         <div className="w-3/4 h-full bg-medical-green-600"></div>
                                     </div>
@@ -91,7 +91,7 @@ export default function LandingPage() {
                         <div className="bg-white p-10 rounded-md border border-slate-200 shadow-official group hover:-translate-y-2 transition-all duration-300">
                             <div className="flex flex-col gap-6 text-left">
                                 <div className="flex items-center justify-between">
-                                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Monitoring</span>
+                                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">การติดตาม</span>
                                     <MapIcon className="w-4 h-4 text-medical-green-600" />
                                 </div>
                                 <div className="flex flex-col">
@@ -99,7 +99,7 @@ export default function LandingPage() {
                                     <span className="text-[11px] font-bold text-slate-400 mt-1 uppercase">เครือข่ายความร่วมมือ</span>
                                 </div>
                                 <div className="pt-6 border-t border-slate-50 flex items-center justify-between">
-                                    <span className="text-[10px] font-black text-medical-green-600">Active Nodes</span>
+                                    <span className="text-[10px] font-black text-medical-green-600">จุดเชื่อมต่อที่ใช้งาน</span>
                                     <Activity className="w-4 h-4 text-medical-green-100 opacity-20" />
                                 </div>
                             </div>
@@ -108,7 +108,7 @@ export default function LandingPage() {
                         <div className="bg-white p-10 rounded-md border border-slate-200 shadow-official group hover:-translate-y-2 transition-all duration-300">
                             <div className="flex flex-col gap-6 text-left">
                                 <div className="flex items-center justify-between">
-                                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Coverage</span>
+                                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">ครอบคลุม</span>
                                     <Users className="w-4 h-4 text-blue-500" />
                                 </div>
                                 <div className="flex flex-col">
@@ -116,7 +116,7 @@ export default function LandingPage() {
                                     <span className="text-[11px] font-bold text-slate-400 mt-1 uppercase">จังหวัดทั่วประเทศ</span>
                                 </div>
                                 <div className="pt-6 border-t border-slate-50 flex items-center justify-between">
-                                    <span className="text-[10px] font-black text-blue-600">Full Coverage</span>
+                                    <span className="text-[10px] font-black text-blue-600">ครอบคลุมทั้งหมด</span>
                                     <ShieldCheck className="w-4 h-4 text-blue-100 opacity-30" />
                                 </div>
                             </div>
@@ -125,7 +125,7 @@ export default function LandingPage() {
                         <div className="bg-medical-green-900 p-10 rounded-md shadow-2xl group hover:-translate-y-2 transition-all duration-300">
                             <div className="flex flex-col h-full gap-6 text-left">
                                 <div className="flex items-center justify-between">
-                                    <span className="text-[10px] font-black text-medical-green-100/50 uppercase tracking-widest">Protocol</span>
+                                    <span className="text-[10px] font-black text-medical-green-100/50 uppercase tracking-widest">โปรโตคอล</span>
                                     <ShieldCheck className="w-4 h-4 text-medical-green-400" />
                                 </div>
                                 <div className="flex flex-col">
@@ -134,7 +134,7 @@ export default function LandingPage() {
                                 </div>
                                 <div className="mt-auto pt-6 border-t border-white/10">
                                     <button className="text-[10px] font-black text-white hover:text-medical-green-100 transition-colors uppercase tracking-widest flex items-center gap-2">
-                                        View Documentation <ChevronRight className="w-3.5 h-3.5" />
+                                        ดูเอกสาร <ChevronRight className="w-3.5 h-3.5" />
                                     </button>
                                 </div>
                             </div>
@@ -145,7 +145,7 @@ export default function LandingPage() {
                     <div className="mt-40 grid grid-cols-1 md:grid-cols-2 gap-20">
                         <div className="flex flex-col gap-8 text-left">
                             <div className="space-y-4">
-                                <span className="text-[11px] font-black text-medical-green-700 uppercase tracking-[0.3em]">Institutional Service</span>
+                                <span className="text-[11px] font-black text-medical-green-700 uppercase tracking-[0.3em]">บริการเชิงสถาบัน</span>
                                 <h2 className="text-4xl font-black text-slate-900 tracking-tight font-heading leading-tight">
                                     ระบบบริหารจัดการข้อมูลระบาดวิทยา<br />แบบบูรณาการรายชั่วโมง
                                 </h2>
@@ -160,7 +160,7 @@ export default function LandingPage() {
                                         <Activity className="w-6 h-6" />
                                     </div>
                                     <div className="space-y-1">
-                                        <h4 className="text-[16px] font-black text-slate-900">Live Surveillance Tracking</h4>
+                                        <h4 className="text-[16px] font-black text-slate-900">การติดตามเฝ้าระวังแบบเรียลไทม์</h4>
                                         <p className="text-sm text-slate-500 font-medium">ติดตามสถานะการแพร่ระบาดแบบเรียลไทม์ผ่านระบบดาวเทียมและข้อมูลเบื้องต้น</p>
                                     </div>
                                 </div>
@@ -169,7 +169,7 @@ export default function LandingPage() {
                                         <ShieldCheck className="w-6 h-6" />
                                     </div>
                                     <div className="space-y-1">
-                                        <h4 className="text-[16px] font-black text-slate-900">Hospital Resource Gateway</h4>
+                                        <h4 className="text-[16px] font-black text-slate-900">ระบบจัดการทรัพยากรโรงพยาบาล</h4>
                                         <p className="text-sm text-slate-500 font-medium">จัดการทรัพยากรเตียงและบุคลากรทางการแพทย์ในภาวะวิกฤตอย่างเป็นระบบ</p>
                                     </div>
                                 </div>
@@ -186,7 +186,7 @@ export default function LandingPage() {
                                 />
                                 <div className="absolute -bottom-10 right-10 bg-medical-green-900 text-white p-10 rounded-[24px] shadow-2xl">
                                     <PhoneCall className="w-10 h-10 mb-6 text-medical-green-200" />
-                                    <p className="text-[10px] font-black text-medical-green-200 uppercase tracking-widest mb-1">Emergency Support</p>
+                                    <p className="text-[10px] font-black text-medical-green-200 uppercase tracking-widest mb-1">ฝ่ายฉุกเฉิน</p>
                                     <p className="text-2xl font-black underline decoration-medical-green-400 decoration-4 underline-offset-8">สายด่วน 1422</p>
                                 </div>
                             </div>
