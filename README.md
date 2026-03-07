@@ -20,7 +20,6 @@
 - [Quick Start](#-quick-start)
 - [Services & Ports](#-services--ports)
 - [โครงสร้างโปรเจ็ค](#-โครงสร้างโปรเจ็ค)
-- [กฎการใช้ Git](#-กฎการใช้-git)
 - [API Endpoints](#-api-endpoints)
 
 ---
@@ -289,3 +288,4 @@ Database-Project/
 |--------|------|----------|------|
 | `GET` | `/api/province` | รายชื่อจังหวัด | — |
 | `GET` | `/api/data-provinces` | ข้อมูลสถิติจังหวัด | — |
+
