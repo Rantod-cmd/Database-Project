@@ -8,6 +8,8 @@ import PatientReporting from '../features/PatientReporting';
 import MapDash from '../features/map/page/MapDash';
 import Login from '../features/login/page/Login';
 import Register from '../features/register/page/register';
+import ProtectedRoute from './ProtectedRoute';
+import Statistics from '../features/statistics/page/Statistics';
 
 export const router = createBrowserRouter([
     {
@@ -28,15 +30,19 @@ export const router = createBrowserRouter([
             },
             {
                 path: "hospitals",
-                element: <ProtectedRoute><AffiliatedHospitals /></ProtectedRoute>
+                element: <ProtectedRoute> <AffiliatedHospitals /> </ProtectedRoute>
             },
             {
                 path: "reporting",
-                element: <ProtectedRoute><PatientReporting /></ProtectedRoute>
+                element: <ProtectedRoute> <PatientReporting /> </ProtectedRoute>
             },
             {
                 path: "contact",
                 element: <ContactUs />
+            },
+            {
+                path: "statistics",
+                element: <Statistics />
             }
         ]
     },

@@ -99,7 +99,7 @@
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                        Client (React)                        │
-│                     localhost:5173/5174                      │
+│                     localhost:5173                           │
 └───────────────────────────┬─────────────────────────────────┘
                             │ HTTP / REST API
                             ▼
@@ -132,15 +132,18 @@
 
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/) (ติดตั้งแล้วเปิดทิ้งไว้)
 - Git
+- ไฟล์ `documents-3.json` (ข้อมูลรายงานผู้ป่วย ~14,000 records) วางไว้ที่ root ของโปรเจ็ค
 
-### ขั้นตอนที่ 1 — Clone โปรเจ็ค
+> **หมายเหตุ:** ต้องเปิด Docker Desktop ให้ daemon รันก่อนทุกครั้ง มิฉะนั้นจะเกิด error `Cannot connect to the Docker daemon`
+
+### 1. Clone โปรเจ็ค
 
 ```bash
 git clone <repository-url>
 cd Database-Project
 ```
 
-### ขั้นตอนที่ 2 — รัน Docker (ครั้งแรก)
+### 2. รัน Docker
 
 ```bash
 docker compose up -d
@@ -148,17 +151,29 @@ docker compose up -d
 
 > ระบบจะ build และเริ่ม 5 services อัตโนมัติ ใช้เวลาประมาณ 2–3 นาทีครั้งแรก
 
-### ขั้นตอนที่ 3 — Seed ข้อมูลเริ่มต้น (SQL Server)
+รอให้ Backend พร้อมก่อนทำขั้นตอนถัดไป (ดู log ด้วย `docker logs Backend --tail 20 -f`)
+
+### 3. Migrate ฐานข้อมูล SQL Server
 
 ```bash
-cd server
-npx prisma db seed
+docker exec Backend sh -c "cd /app/server && npx prisma migrate deploy"
 ```
 
-### ขั้นตอนที่ 4 — Import ข้อมูลรายงาน (MongoDB)
+### 4. Seed ข้อมูลเริ่มต้น (SQL Server)
+
+```bash
+docker exec Backend sh -c "cd /app/server && npx prisma db seed"
+```
+
+> จะ seed ข้อมูล Province, Hospital, Disease, และ User เริ่มต้น
+
+### 5. Import ข้อมูลรายงาน (MongoDB)
+
+> ไฟล์ `documents-3.json` ต้องอยู่ที่ root ของโปรเจ็ค
 
 ```bash
 docker cp documents-3.json DB-mongo:/tmp/documents-3.json
+
 docker exec DB-mongo mongoimport \
   --uri "mongodb://admin:password@localhost:27017/mydatabase?authSource=admin" \
   --collection reports \
@@ -166,7 +181,11 @@ docker exec DB-mongo mongoimport \
   --jsonArray
 ```
 
-🎉 **เปิดเว็บที่** `http://localhost:5173`
+### 6. เปิดเว็บ
+
+```
+http://localhost:5173
+```
 
 ---
 
@@ -203,7 +222,7 @@ Database-Project/
 │       │   ├── map/              # แผนที่จังหวัด
 │       │   ├── dash_txt/         # ตารางข้อมูลจังหวัด
 │       │   ├── hospitals/        # โรงพยาบาลเครือข่าย
-│       │   ├── statistics/       # รายงานโรคล่าสุด ← ใหม่
+│       │   ├── statistics/       # รายงานโรคล่าสุด
 │       │   ├── login/
 │       │   └── register/
 │       ├── routes/               # React Router config
@@ -297,14 +316,20 @@ git push origin feature/ชื่อฟีเจอร์
 # ดู containers ที่รันอยู่
 docker ps
 
+# ดู logs backend
+docker logs Backend --tail 50 -f
+
 # Rebuild หลังแก้โค้ด backend
 docker compose build server && docker compose up -d server
 
 # หยุด services ทั้งหมด
 docker compose down
 
-# ดู logs backend
-docker logs Backend --tail 50 -f
+# หยุดและลบ volumes (ล้างข้อมูลทั้งหมด)
+docker compose down -v
+
+# รัน seed ใหม่
+docker exec Backend sh -c "cd /app/server && npx prisma db seed"
 
 # เปิด Prisma Studio (DB GUI)
 # http://localhost:5555
@@ -313,16 +338,6 @@ docker logs Backend --tail 50 -f
 git branch -a
 git log --oneline -10
 ```
-
----
-
-## 🤝 Contributing
-
-1. Fork โปรเจ็ค
-2. สร้าง Feature Branch (`git checkout -b feature/amazing-feature`)
-3. Commit (`git commit -m 'feat: add amazing feature'`)
-4. Push (`git push origin feature/amazing-feature`)
-5. เปิด Pull Request → `develops`
 
 ---
 

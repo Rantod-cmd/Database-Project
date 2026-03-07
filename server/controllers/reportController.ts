@@ -1,4 +1,4 @@
-import { Response } from "express";
+import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 import mongoose from "mongoose";
 import ReportModel from "../models/reportModel";
@@ -51,5 +51,23 @@ export const postReport = async (
       success: false,
       message: "เกิดข้อผิดพลาดในระบบ",
     });
+  }
+};
+
+export const getRecentReports = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  try {
+    const limit = Math.min(Number(req.query.limit) || 50, 100);
+    const reports = await ReportModel.find()
+      .sort({ reportAt: -1 })
+      .limit(limit)
+      .select("diseaseName icdCode provinceName hospitalName reportAt sex age");
+
+    res.status(200).json({ success: true, data: reports });
+  } catch (error) {
+    console.error("Get Recent Reports Error:", error);
+    res.status(500).json({ success: false, message: "เกิดข้อผิดพลาดในระบบ" });
   }
 };
