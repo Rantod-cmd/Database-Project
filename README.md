@@ -124,6 +124,10 @@
 └──────────────────────┘   └────────────────────────┘
 ```
 
+### Database Structure Diagram
+
+![Database Structure Diagram](database_structure_diagram.png)
+
 ---
 
 ## 🚀 Quick Start
@@ -171,6 +175,7 @@ docker exec Backend sh -c "cd /app/server && npx prisma db seed"
 
 > ไฟล์ `documents-3.json` ต้องอยู่ที่ root ของโปรเจ็ค
 
+**macOS / Linux:**
 ```bash
 docker cp documents-3.json DB-mongo:/tmp/documents-3.json
 
@@ -178,6 +183,24 @@ docker exec DB-mongo mongoimport \
   --uri "mongodb://admin:password@localhost:27017/mydatabase?authSource=admin" \
   --collection reports \
   --file /tmp/documents-3.json \
+  --jsonArray
+```
+
+**Windows — PowerShell หรือ Command Prompt (แนะนำ):**
+```powershell
+docker cp documents-3.json DB-mongo:/tmp/documents-3.json
+
+docker exec DB-mongo mongoimport --uri "mongodb://admin:password@localhost:27017/mydatabase?authSource=admin" --collection reports --file /tmp/documents-3.json --jsonArray
+```
+
+**Windows — Git Bash:** ⚠️ Git Bash จะแปลง path `/tmp/...` เป็น Windows path โดยอัตโนมัติ ให้ใช้ `//` นำหน้าแทน:
+```bash
+docker cp documents-3.json DB-mongo:/tmp/documents-3.json
+
+docker exec DB-mongo mongoimport \
+  --uri "mongodb://admin:password@localhost:27017/mydatabase?authSource=admin" \
+  --collection reports \
+  --file //tmp/documents-3.json \
   --jsonArray
 ```
 
