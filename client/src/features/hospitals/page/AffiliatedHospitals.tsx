@@ -16,7 +16,6 @@ import type { IHospital } from "../../../../../shared/types/schema/hospital";
 import apiClient from "../../../api/apiClient";
 import Dropdown from "../../../components/Dropdown";
 import Pagination from "../../../components/Pagination"; 
-import { useNavigate } from "react-router-dom";
 
 interface PaginationData {
   total: number;
@@ -37,7 +36,6 @@ export default function AffiliatedHospitals() {
     limit: 6,
     totalPages: 0,
   });
-  const navigate = useNavigate();
 
   useEffect(() => {
     setPagination(prev => ({ ...prev, page: 1 }));
@@ -159,7 +157,7 @@ export default function AffiliatedHospitals() {
         </div>
         <div>
           <button
-            onClick={() => navigate('/login')}
+            onClick={() => setIsAdding(true)}
             className="px-8 py-4 bg-medical-green-900 rounded-md text-[12px] font-black uppercase tracking-widest text-white hover:bg-medical-green-800 transition-all flex items-center gap-2 shadow-lg shadow-emerald-900/10"
           >
             <Plus className="w-4 h-4" />

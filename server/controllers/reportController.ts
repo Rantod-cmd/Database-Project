@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import { PrismaClient } from "@prisma/client";
 import mongoose from "mongoose";
 import ReportModel from "../models/reportModel";
@@ -55,12 +55,13 @@ export const postReport = async (
 };
 
 export const getRecentReports = async (
-  req: Request,
+  req: AuthRequest,
   res: Response,
 ): Promise<void> => {
   try {
     const limit = Math.min(Number(req.query.limit) || 50, 100);
-    const reports = await ReportModel.find()
+    const filter = req.user ? { hospitalId: req.user.hospitalId } : {};
+    const reports = await ReportModel.find(filter)
       .sort({ reportAt: -1 })
       .limit(limit)
       .select("diseaseName icdCode provinceName hospitalName reportAt sex age");

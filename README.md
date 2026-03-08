@@ -206,7 +206,7 @@ docker exec DB-mongo mongoimport \
 ### 6. เปิดเว็บ
 
 ```
-http://localhost:5173
+http://localhost:5173 (สามารถลอง login ได้ดด้วยแอคเค้าต่อไปนี้ username:admin_siriraj password:admin123)
 ```
 
 ---

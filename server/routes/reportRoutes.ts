@@ -4,7 +4,7 @@ import { optionalAuth } from "../middleware/authMiddleware";
 
 const router = Router();
 
-router.get("/recent", getRecentReports);
+router.get("/recent", optionalAuth, getRecentReports);
 router.post("/", optionalAuth, postReport);
 
 export default router;

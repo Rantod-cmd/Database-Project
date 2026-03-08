@@ -57,11 +57,11 @@ export default function Statistics() {
                 <Activity className="w-6 h-6 text-medical-green-700" />
               </div>
               <h1 className="text-2xl font-bold text-slate-800">
-                รายงานโรคล่าสุด
+                ประวัติการรายงานโรคของฉัน
               </h1>
             </div>
             <p className="text-slate-500 ml-14">
-              แสดงการรายงานโรค 50 รายการล่าสุดในระบบ
+              แสดงรายการที่คุณเพิ่มรายงาน 50 รายการล่าสุด
             </p>
           </div>
           <div className="flex flex-col items-end gap-1">
@@ -153,7 +153,7 @@ export default function Statistics() {
         </div>
 
         <p className="text-center text-slate-400 text-xs mt-4">
-          แสดง {reports.length} รายการล่าสุด
+          แสดง {reports.length} รายการที่คุณเพิ่ม
         </p>
       </div>
     </div>
