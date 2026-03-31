@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "start": "cd server && npx tsx index.ts"
+  },
   "dependencies": {
     "prisma": "^6.4.0"
   }
