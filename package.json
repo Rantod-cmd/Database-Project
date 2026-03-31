@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "cd server && npx tsx index.ts"
+    "start": "cd server && npm install && npx tsx index.ts"
   },
   "dependencies": {
     "prisma": "^6.4.0"
