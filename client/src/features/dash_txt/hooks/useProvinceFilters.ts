@@ -29,6 +29,7 @@ const defaultFilters: ProvinceFilters = {
   minCases: 0,
   order: "count_desc",
   page: 1,
+  disease: "",
 };
 
 export const useProvinceFilters = (initialFilters: Partial<ProvinceFilters> = {}): UseProvinceFiltersReturn => {

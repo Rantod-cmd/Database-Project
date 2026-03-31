@@ -70,7 +70,6 @@ export const useProvinceDashboard = ({
   });
 
   const {
-    data: totalData,
     loading: totalLoading,
     error: totalError,
     totalPatients,
@@ -90,7 +89,7 @@ export const useProvinceDashboard = ({
     type: "disease",
   });
 
-  const { stats } = useProvinceStats({ data: provinceData });
+  useProvinceStats({ data: provinceData });
 
   const isLoading = dataLoading || totalLoading || diseaseLoading;
   const isError = !!dataError || !!totalError || !!diseaseError;
